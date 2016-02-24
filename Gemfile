@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'autoprefixer-rails'
+#gem 'bootstrap-sass', '~> 3.3.6'
+#gem 'autoprefixer-rails'
 
+ruby "2.2.1"
+gem 'materialize-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

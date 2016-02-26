@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  C_CustomerID: 
+  C_LoginCode: MyString
+  C_CustomerChainID: 
+  C_CustomerName: MyString
+  Address1: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Phone: MyString
+
+two:
+  C_CustomerID: 
+  C_LoginCode: MyString
+  C_CustomerChainID: 
+  C_CustomerName: MyString
+  Address1: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Phone: MyString

@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  CustoemrID: 
+  LoginCode: MyString
+  CustomerChainID: 
+  CustomerName: MyString
+  CustomerSiteID: 
+  Address1: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Phone: MyString
+  HostHotelID: 
+  C_CustomerID: 
+  CountryCode: MyString
+
+two:
+  CustoemrID: 
+  LoginCode: MyString
+  CustomerChainID: 
+  CustomerName: MyString
+  CustomerSiteID: 
+  Address1: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Phone: MyString
+  HostHotelID: 
+  C_CustomerID: 
+  CountryCode: MyString

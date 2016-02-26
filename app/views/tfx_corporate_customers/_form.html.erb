@@ -1,0 +1,57 @@
+<%= form_for(@tfx_corporate_customer) do |f| %>
+  <% if @tfx_corporate_customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tfx_corporate_customer.errors.count, "error") %> prohibited this tfx_corporate_customer from being saved:</h2>
+
+      <ul>
+      <% @tfx_corporate_customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :C_CustomerID %><br>
+    <%= f.text_field :C_CustomerID %>
+  </div>
+  <div class="field">
+    <%= f.label :C_LoginCode %><br>
+    <%= f.text_field :C_LoginCode %>
+  </div>
+  <div class="field">
+    <%= f.label :C_CustomerChainID %><br>
+    <%= f.text_field :C_CustomerChainID %>
+  </div>
+  <div class="field">
+    <%= f.label :C_CustomerName %><br>
+    <%= f.text_field :C_CustomerName %>
+  </div>
+  <div class="field">
+    <%= f.label :Address1 %><br>
+    <%= f.text_field :Address1 %>
+  </div>
+  <div class="field">
+    <%= f.label :Address2 %><br>
+    <%= f.text_field :Address2 %>
+  </div>
+  <div class="field">
+    <%= f.label :City %><br>
+    <%= f.text_field :City %>
+  </div>
+  <div class="field">
+    <%= f.label :State %><br>
+    <%= f.text_field :State %>
+  </div>
+  <div class="field">
+    <%= f.label :Zip %><br>
+    <%= f.text_field :Zip %>
+  </div>
+  <div class="field">
+    <%= f.label :Phone %><br>
+    <%= f.text_field :Phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

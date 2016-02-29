@@ -15,9 +15,9 @@ development:
   reconnect: false
   database: trendfxrates
   pool: 5
-  username: scraper
-  password: scratch
-  host: localhost
+  username: 'scraper'
+  password: 'scratch'
+  host: '75.66.126.206'
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,9 +29,9 @@ test:
   reconnect: false
   database: trendfxrates_test
   pool: 5
-  username: scraper
+  username: 'scraper'
   password: 'scratch'
-  host: localhost
+  host: '75.66.126.206'
 
 test:
   adapter: mysql2
@@ -39,6 +39,6 @@ test:
   reconnect: false
   database: trendfxrates_prod
   pool: 5
-  username: scraper
+  username: 'scraper'
   password: 'scratch'
-  host: localhost  
+  host: '75.66.126.206'  

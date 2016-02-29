@@ -1,1 +1,0 @@
-json.extract! @tfx_customer, :id, :CustoemrID, :LoginCode, :CustomerChainID, :CustomerName, :CustomerSiteID, :Address1, :Address2, :City, :State, :Zip, :Phone, :HostHotelID, :C_CustomerID, :CountryCode, :created_at, :updated_at

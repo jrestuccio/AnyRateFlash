@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  HotelID: 1
+  HotelChainID: 1
+  SiteID: 1
+  ShortName: MyString
+  Name: MyString
+  Address: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Country: MyString
+  DateCreated: 2016-02-29 04:22:43
+  Phone: MyString
+
+two:
+  HotelID: 1
+  HotelChainID: 1
+  SiteID: 1
+  ShortName: MyString
+  Name: MyString
+  Address: MyString
+  Address2: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Country: MyString
+  DateCreated: 2016-02-29 04:22:43
+  Phone: MyString

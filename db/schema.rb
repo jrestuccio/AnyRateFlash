@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-class CreateDatabase < ActiveRecord::Migration
-    def self.up      
-
-ActiveRecord::Schema.define(version: 20160229042127) do
+ActiveRecord::Schema.define(version: 20160229093926) do
 
   create_table "tfx_contacts", primary_key: "ContactID", force: :cascade do |t|
     t.string   "FirstName", limit: 100, null: false
@@ -26,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160229042127) do
     t.string   "Ext",       limit: 10
     t.datetime "Expires",               null: false
   end
+
+  add_index "tfx_contacts", ["UserID"], name: "index_tfx_Contacts_on_userid", unique: true, using: :btree
 
   create_table "tfx_corporatecustomers", primary_key: "C_CustomerID", force: :cascade do |t|
     t.string  "C_LoginCode",       limit: 15
@@ -40,21 +39,6 @@ ActiveRecord::Schema.define(version: 20160229042127) do
   end
 
   add_index "tfx_corporatecustomers", ["C_CustomerID"], name: "cus_id", using: :btree
-
-  create_table "tfx_customershoppinghotels", id: false, force: :cascade do |t|
-    t.integer "CustomerID", limit: 4, null: false
-    t.integer "HotelID",    limit: 4, null: false
-  end
-
-  add_index "tfx_customershoppinghotels", ["CustomerID"], name: "CustomerID", using: :btree
-  add_index "tfx_customershoppinghotels", ["HotelID"], name: "HotelID", using: :btree
-
-  create_table "tfx_customershoppingsites", id: false, force: :cascade do |t|
-    t.integer "CustomerID", limit: 4, null: false
-    t.integer "SiteID",     limit: 4, null: false
-  end
-
-  add_index "tfx_customershoppingsites", ["SiteID"], name: "FK_tfx_CustomerShoppingSites_tfx_Sites", using: :btree
 
   create_table "tfx_customers", primary_key: "CustomerID", force: :cascade do |t|
     t.string  "LoginCode",       limit: 15
@@ -73,6 +57,21 @@ ActiveRecord::Schema.define(version: 20160229042127) do
   end
 
   add_index "tfx_customers", ["CustomerID"], name: "cus_id", using: :btree
+
+  create_table "tfx_customershoppinghotels", id: false, force: :cascade do |t|
+    t.integer "CustomerID", limit: 4, null: false
+    t.integer "HotelID",    limit: 4, null: false
+  end
+
+  add_index "tfx_customershoppinghotels", ["CustomerID"], name: "CustomerID", using: :btree
+  add_index "tfx_customershoppinghotels", ["HotelID"], name: "HotelID", using: :btree
+
+  create_table "tfx_customershoppingsites", id: false, force: :cascade do |t|
+    t.integer "CustomerID", limit: 4, null: false
+    t.integer "SiteID",     limit: 4, null: false
+  end
+
+  add_index "tfx_customershoppingsites", ["SiteID"], name: "FK_tfx_CustomerShoppingSites_tfx_Sites", using: :btree
 
   create_table "tfx_hotelchains", primary_key: "HotelChainID", force: :cascade do |t|
     t.string  "ChainShortName", limit: 5,   null: false
@@ -143,7 +142,8 @@ ActiveRecord::Schema.define(version: 20160229042127) do
   add_index "tfx_siteparameters", ["ParameterRoleID"], name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles", using: :btree
   add_index "tfx_siteparameters", ["SiteID"], name: "FK_tfx_SiteParameters_tfx_Sites", using: :btree
 
-  create_table "tfx_sites", primary_key: "SiteID", force: :cascade do |t|
+  create_table "tfx_sites", id: false, force: :cascade do |t|
+    t.integer "SiteID",            limit: 4,   null: false
     t.string  "SiteDesc",          limit: 300, null: false
     t.boolean "IsBranded",                     null: false
     t.integer "SearchTypeID",      limit: 4,   null: false
@@ -152,10 +152,11 @@ ActiveRecord::Schema.define(version: 20160229042127) do
     t.boolean "IsActive"
   end
 
-  create_table "tfx_v2_errorcodes", primary_key: "ErrorCodeID", force: :cascade do |t|
-    t.string "ErrorCode", limit: 8,    null: false
-    t.string "ErrorDesc", limit: 500,  null: false
-    t.string "ErrorSQL",  limit: 1000, null: false
+  create_table "tfx_v2_errorcodes", id: false, force: :cascade do |t|
+    t.integer "ErrorCodeID", limit: 4,    null: false
+    t.string  "ErrorCode",   limit: 8,    null: false
+    t.string  "ErrorDesc",   limit: 500,  null: false
+    t.string  "ErrorSQL",    limit: 1000, null: false
   end
 
   create_table "tfx_v2_queue", id: false, force: :cascade do |t|
@@ -184,9 +185,10 @@ ActiveRecord::Schema.define(version: 20160229042127) do
   add_index "tfx_v2_queue", ["ArrivalDate"], name: "ArrivalDate", using: :btree
   add_index "tfx_v2_queue", ["RequestID", "SessionID"], name: "RequestID", using: :btree
 
-  create_table "tfx_v2_ratetypes", primary_key: "RateTypeID", force: :cascade do |t|
-    t.string "RateTypeDesc",      limit: 50, null: false
-    t.string "RateTypeDescShort", limit: 10, null: false
+  create_table "tfx_v2_ratetypes", id: false, force: :cascade do |t|
+    t.integer "RateTypeID",        limit: 4,  null: false
+    t.string  "RateTypeDesc",      limit: 50, null: false
+    t.string  "RateTypeDescShort", limit: 10, null: false
   end
 
   create_table "tfx_v2_scriptengines", primary_key: "ScriptEngineID", force: :cascade do |t|
@@ -211,29 +213,6 @@ ActiveRecord::Schema.define(version: 20160229042127) do
     t.datetime "TimeInserted",                                       null: false
   end
 
-
-
-  execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL , DROP PRIMARY KEY;"
-
-
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree
-
-  add_index "tfx_contacts", ["userid"], name: "index_tfx_Contacts_on_userid", unique: true, using: :btree
-
-  
-end
-
-
-
-end
-
-
-def self.down
-  #drop all the tables if you really need
-  #to support migration back to version 0
-
-  end
 
 end

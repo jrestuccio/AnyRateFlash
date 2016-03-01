@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ContactID: 1
+  FirstName: MyString
+  LastName: MyString
+  EMail: MyString
+  UserID: MyString
+  Password: MyString
+  Phone: MyString
+  Ext: MyString
+  Expires: 2016-02-29 04:43:42
+
+two:
+  ContactID: 1
+  FirstName: MyString
+  LastName: MyString
+  EMail: MyString
+  UserID: MyString
+  Password: MyString
+  Phone: MyString
+  Ext: MyString
+  Expires: 2016-02-29 04:43:42

@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Tfx Hotels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hotelid</th>
+      <th>Hotelchainid</th>
+      <th>Siteid</th>
+      <th>Shortname</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Country</th>
+      <th>Datecreated</th>
+      <th>Phone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tfx_hotels.each do |tfx_hotel| %>
+      <tr>
+        <td><%= tfx_hotel.HotelID %></td>
+        <td><%= tfx_hotel.HotelChainID %></td>
+        <td><%= tfx_hotel.SiteID %></td>
+        <td><%= tfx_hotel.ShortName %></td>
+        <td><%= tfx_hotel.Name %></td>
+        <td><%= tfx_hotel.Address %></td>
+        <td><%= tfx_hotel.Address2 %></td>
+        <td><%= tfx_hotel.City %></td>
+        <td><%= tfx_hotel.State %></td>
+        <td><%= tfx_hotel.Zip %></td>
+        <td><%= tfx_hotel.Country %></td>
+        <td><%= tfx_hotel.DateCreated %></td>
+        <td><%= tfx_hotel.Phone %></td>
+        <td><%= link_to 'Show', tfx_hotel %></td>
+        <td><%= link_to 'Edit', edit_tfx_hotel_path(tfx_hotel) %></td>
+        <td><%= link_to 'Destroy', tfx_hotel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tfx hotel', new_tfx_hotel_path %>

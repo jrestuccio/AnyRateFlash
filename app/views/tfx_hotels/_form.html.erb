@@ -1,0 +1,69 @@
+<%= form_for(@tfx_hotel) do |f| %>
+  <% if @tfx_hotel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tfx_hotel.errors.count, "error") %> prohibited this tfx_hotel from being saved:</h2>
+
+      <ul>
+      <% @tfx_hotel.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :HotelID %><br>
+    <%= f.number_field :HotelID %>
+  </div>
+  <div class="field">
+    <%= f.label :HotelChainID %><br>
+    <%= f.number_field :HotelChainID %>
+  </div>
+  <div class="field">
+    <%= f.label :SiteID %><br>
+    <%= f.number_field :SiteID %>
+  </div>
+  <div class="field">
+    <%= f.label :ShortName %><br>
+    <%= f.text_field :ShortName %>
+  </div>
+  <div class="field">
+    <%= f.label :Name %><br>
+    <%= f.text_field :Name %>
+  </div>
+  <div class="field">
+    <%= f.label :Address %><br>
+    <%= f.text_field :Address %>
+  </div>
+  <div class="field">
+    <%= f.label :Address2 %><br>
+    <%= f.text_field :Address2 %>
+  </div>
+  <div class="field">
+    <%= f.label :City %><br>
+    <%= f.text_field :City %>
+  </div>
+  <div class="field">
+    <%= f.label :State %><br>
+    <%= f.text_field :State %>
+  </div>
+  <div class="field">
+    <%= f.label :Zip %><br>
+    <%= f.text_field :Zip %>
+  </div>
+  <div class="field">
+    <%= f.label :Country %><br>
+    <%= f.text_field :Country %>
+  </div>
+  <div class="field">
+    <%= f.label :DateCreated %><br>
+    <%= f.datetime_select :DateCreated %>
+  </div>
+  <div class="field">
+    <%= f.label :Phone %><br>
+    <%= f.text_field :Phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Tfx Contacts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Contactid</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Userid</th>
+      <th>Password</th>
+      <th>Phone</th>
+      <th>Ext</th>
+      <th>Expires</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tfx_contacts.each do |tfx_contact| %>
+      <tr>
+        <td><%= tfx_contact.ContactID %></td>
+        <td><%= tfx_contact.FirstName %></td>
+        <td><%= tfx_contact.LastName %></td>
+        <td><%= tfx_contact.EMail %></td>
+        <td><%= tfx_contact.UserID %></td>
+        <td><%= tfx_contact.Password %></td>
+        <td><%= tfx_contact.Phone %></td>
+        <td><%= tfx_contact.Ext %></td>
+        <td><%= tfx_contact.Expires %></td>
+        <td><%= link_to 'Show', tfx_contact %></td>
+        <td><%= link_to 'Edit', edit_tfx_contact_path(tfx_contact) %></td>
+        <td><%= link_to 'Destroy', tfx_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tfx contact', new_tfx_contact_path %>

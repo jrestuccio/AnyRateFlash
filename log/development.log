@@ -1906,3 +1906,10 @@ WHERE fk.referenced_column_name is not null
   AND fk.table_name = 'TFX_V2_UnfilteredRates'
 
   [1m[36m (1.5ms)[0m  [1mSHOW CREATE TABLE `TFX_V2_UnfilteredRates`[0m
+
+
+Started GET "/" for 10.0.2.2 at 2016-03-01 05:28:38 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/vagrant/.rvm/gems/ruby-2.2.1/gems/railties-4.2.5.1/lib/rails/templates/rails/welcome/index.html.erb (3.7ms)
+Completed 200 OK in 29ms (Views: 18.2ms | ActiveRecord: 0.0ms)

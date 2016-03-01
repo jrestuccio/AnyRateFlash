@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+
+  
+  resources :tfx_contacts
+  resources :tfx_hotels
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

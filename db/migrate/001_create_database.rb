@@ -16,7 +16,7 @@ class CreateDatabase < ActiveRecord::Migration
 
 ActiveRecord::Schema.define(version: 20160229042127) do
 
-  execute "SET GLOBAL sql_mode='NO_AUTO_VALUE_ON_ZERO';"
+#run trendfxrates_fix_mysql.sql
 
 
   create_table "tfx_contacts", primary_key: "ContactID", force: :cascade do |t|

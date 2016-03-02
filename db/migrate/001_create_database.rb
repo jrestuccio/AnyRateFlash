@@ -16,6 +16,9 @@ class CreateDatabase < ActiveRecord::Migration
 
 ActiveRecord::Schema.define(version: 20160229042127) do
 
+  execute "SET GLOBAL sql_mode='NO_AUTO_VALUE_ON_ZERO';"
+
+
   create_table "tfx_contacts", primary_key: "ContactID", force: :cascade do |t|
     t.string   "FirstName", limit: 100, null: false
     t.string   "LastName",  limit: 100, null: false
@@ -213,9 +216,10 @@ ActiveRecord::Schema.define(version: 20160229042127) do
 
 
 
-  execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL , DROP PRIMARY KEY;"
+  #execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL , DROP PRIMARY KEY;"
+  #execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL , DROP PRIMARY KEY;"
+  #execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL , DROP PRIMARY KEY;"
+  
 
 
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree

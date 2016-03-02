@@ -2,9 +2,9 @@ class ForeignKeys < ActiveRecord::Migration
   def change
 
 
-  execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (ErrorCodeID);"
-  execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (SiteID);"
-  execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (RateTypeID);"
+  # execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (ErrorCodeID);"
+  # execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (SiteID);"
+  # execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL AUTO_INCREMENT , ADD PRIMARY KEY (RateTypeID);"
 
 
 

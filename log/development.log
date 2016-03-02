@@ -8827,3 +8827,47 @@ WHERE fk.referenced_column_name is not null
 [0m
   [1m[35m (1.4ms)[0m  SHOW CREATE TABLE `tfx_v2_unfilteredrates`
 >>>>>>> 4-create-scaffolds
+  [1m[36m (79.6ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (73.0ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (42.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateDatabase (1)
+  [1m[35m (54.5ms)[0m  SET GLOBAL sql_mode='NO_AUTO_VALUE_ON_ZERO';
+  [1m[36m (63.8ms)[0m  [1mCREATE TABLE `tfx_contacts` (`ContactID` int(11) auto_increment PRIMARY KEY, `FirstName` varchar(100) NOT NULL, `LastName` varchar(100) NOT NULL, `EMail` varchar(100) NOT NULL, `UserID` varchar(100) NOT NULL, `Password` varchar(20) NOT NULL, `Phone` varchar(30), `Ext` varchar(10), `Expires` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (61.5ms)[0m  CREATE TABLE `tfx_corporatecustomers` (`C_CustomerID` int(11) auto_increment PRIMARY KEY, `C_LoginCode` varchar(15), `C_CustomerChainID` int(11), `C_CustomerName` varchar(300), `Address1` varchar(300), `Address2` varchar(300), `City` varchar(100), `State` varchar(2), `Zip` varchar(10), `Phone` varchar(30)) ENGINE=InnoDB
+  [1m[36m (71.3ms)[0m  [1mCREATE  INDEX `cus_id` USING btree ON `tfx_corporatecustomers` (`C_CustomerID`) [0m
+  [1m[35m (71.0ms)[0m  CREATE TABLE `tfx_customershoppinghotels` (`CustomerID` int(11) NOT NULL, `HotelID` int(11) NOT NULL) ENGINE=InnoDB
+  [1m[36m (83.0ms)[0m  [1mCREATE  INDEX `CustomerID` USING btree ON `tfx_customershoppinghotels` (`CustomerID`) [0m
+  [1m[35m (71.0ms)[0m  CREATE  INDEX `HotelID` USING btree ON `tfx_customershoppinghotels` (`HotelID`) 
+  [1m[36m (65.9ms)[0m  [1mCREATE TABLE `tfx_customershoppingsites` (`CustomerID` int(11) NOT NULL, `SiteID` int(11) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (70.7ms)[0m  CREATE  INDEX `FK_tfx_CustomerShoppingSites_tfx_Sites` USING btree ON `tfx_customershoppingsites` (`SiteID`) 
+  [1m[36m (75.4ms)[0m  [1mCREATE TABLE `tfx_customers` (`CustomerID` int(11) auto_increment PRIMARY KEY, `LoginCode` varchar(15), `CustomerChainID` int(11), `CustomerName` varchar(300), `CustomerSiteID` int(11), `Address1` varchar(300), `Address2` varchar(300), `City` varchar(100), `State` varchar(2), `Zip` varchar(10), `Phone` varchar(30), `HostHotelID` int(11), `C_CustomerID` int(11), `CountryCode` varchar(2)) ENGINE=InnoDB[0m
+  [1m[35m (78.9ms)[0m  CREATE  INDEX `cus_id` USING btree ON `tfx_customers` (`CustomerID`) 
+  [1m[36m (73.9ms)[0m  [1mCREATE TABLE `tfx_hotelchains` (`HotelChainID` int(11) auto_increment PRIMARY KEY, `ChainShortName` varchar(5) NOT NULL, `ChainName` varchar(200) NOT NULL, `OwnedByID` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (75.5ms)[0m  CREATE TABLE `tfx_hotels` (`HotelID` int(11) auto_increment PRIMARY KEY, `HotelChainID` int(11), `SiteID` int(11), `ShortName` varchar(7), `Name` varchar(200) NOT NULL, `Address` varchar(200), `Address2` varchar(200), `City` varchar(100) NOT NULL, `State` varchar(50) NOT NULL, `Zip` varchar(10), `Country` varchar(100) NOT NULL, `DateCreated` datetime NOT NULL, `Phone` varchar(30)) ENGINE=InnoDB
+  [1m[36m (77.3ms)[0m  [1mCREATE  INDEX `FK_tfx_Hotels_tfx_HotelChains` USING btree ON `tfx_hotels` (`HotelChainID`) [0m
+  [1m[35m (76.8ms)[0m  CREATE TABLE `tfx_proxies` (`Proxy` varchar(30) NOT NULL, `Port` int(11) NOT NULL, `Expires` datetime NOT NULL, `ProxyGroup` int(11) NOT NULL) ENGINE=InnoDB
+  [1m[36m (72.7ms)[0m  [1mCREATE TABLE `tfx_searchrequestq` (`RequestQID` int(11) auto_increment PRIMARY KEY, `HotelID` int(11) NOT NULL, `SiteID` int(11) NOT NULL, `ArrivalDate` datetime NOT NULL, `ArrivalDay` varchar(3), `LOS` int(11) NOT NULL, `RateTypeID` int(11) NOT NULL, `RoomTypeID` int(11), `Guests` int(11) NOT NULL, `RunStartDate` datetime, `RunCompleteDate` datetime, `RequestDate` datetime NOT NULL, `MachineName` varchar(50), `RetryCount` int(11), `RetriesBeforeFail` int(11), `ErrorCodeID` int(11), `IsIncidental` tinyint, `SessionID` varchar(100), `EmailAddress` varchar(50), `IsTestRun` tinyint, `Activated` tinyint) ENGINE=InnoDB[0m
+  [1m[35m (68.7ms)[0m  CREATE TABLE `tfx_siteparameterroles` (`SiteParameterRoleID` int(11) auto_increment PRIMARY KEY, `RoleDesc` varchar(50) NOT NULL) ENGINE=InnoDB
+  [1m[36m (71.1ms)[0m  [1mCREATE  INDEX `SiteParameterRoleID` USING btree ON `tfx_siteparameterroles` (`SiteParameterRoleID`) [0m
+  [1m[35m (79.5ms)[0m  CREATE TABLE `tfx_siteparameters` (`HotelID` int(11) NOT NULL, `SiteID` int(11) NOT NULL, `ParameterRoleID` int(11) NOT NULL, `ParameterValue` varchar(300) NOT NULL) ENGINE=InnoDB
+  [1m[36m (66.9ms)[0m  [1mCREATE  INDEX `FK_tfx_SiteParameters_tfx_SiteParameterRoles` USING btree ON `tfx_siteparameters` (`ParameterRoleID`) [0m
+  [1m[35m (81.3ms)[0m  CREATE  INDEX `FK_tfx_SiteParameters_tfx_Sites` USING btree ON `tfx_siteparameters` (`SiteID`) 
+  [1m[36m (62.0ms)[0m  [1mCREATE TABLE `tfx_sites` (`SiteID` int(11) auto_increment PRIMARY KEY, `SiteDesc` varchar(300) NOT NULL, `IsBranded` tinyint(1) NOT NULL, `SearchTypeID` int(11) NOT NULL, `HaveDetailedRates` tinyint(1), `IsAvailable` tinyint(1), `IsActive` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (59.7ms)[0m  CREATE TABLE `tfx_v2_errorcodes` (`ErrorCodeID` int(11) auto_increment PRIMARY KEY, `ErrorCode` varchar(8) NOT NULL, `ErrorDesc` varchar(500) NOT NULL, `ErrorSQL` varchar(1000) NOT NULL) ENGINE=InnoDB
+  [1m[36m (79.6ms)[0m  [1mCREATE TABLE `tfx_v2_queue` (`RequestID` int(11) NOT NULL, `HotelID` int(11) NOT NULL, `SiteID` int(11) NOT NULL, `ArrivalDate` datetime NOT NULL, `LOS` int(11) NOT NULL, `DictionaryID` int(11), `RoomTypeID` int(11), `NumOfGuest` int(11), `SearchProductID` int(11), `SearchEngineID` int(11), `SearchStartDate` datetime, `SearchStopDate` datetime, `RetryCount` int(11) NOT NULL, `MaxRetries` int(11) NOT NULL, `ErrorCode` varchar(8), `SessionID` varchar(50) NOT NULL, `MachineName` varchar(50), `EmailAddress` varchar(100), `ProxyUsed` varchar(50), `InProgress` tinyint(1) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (64.7ms)[0m  CREATE  INDEX `ArrivalDate` USING btree ON `tfx_v2_queue` (`ArrivalDate`) 
+  [1m[36m (82.8ms)[0m  [1mCREATE  INDEX `RequestID` USING btree ON `tfx_v2_queue` (`RequestID`, `SessionID`) [0m
+  [1m[35m (63.0ms)[0m  CREATE TABLE `tfx_v2_ratetypes` (`RateTypeID` int(11) auto_increment PRIMARY KEY, `RateTypeDesc` varchar(50) NOT NULL, `RateTypeDescShort` varchar(10) NOT NULL) ENGINE=InnoDB
+  [1m[36m (75.7ms)[0m  [1mCREATE TABLE `tfx_v2_scriptengines` (`ScriptEngineID` int(11) auto_increment PRIMARY KEY, `ScriptEngineDesc` varchar(200) NOT NULL, `ScriptEngineExt` varchar(5), `ScriptEngineApp` varchar(20)) ENGINE=InnoDB[0m
+  [1m[35m (69.7ms)[0m  CREATE TABLE `tfx_v2_sitetimeouts` (`SiteID` int(11) auto_increment PRIMARY KEY, `TimeOut` int(11) NOT NULL) ENGINE=InnoDB
+  [1m[36m (59.4ms)[0m  [1mCREATE TABLE `tfx_v2_unfilteredrates` (`RequestID` int(11) auto_increment PRIMARY KEY, `HotelID` int(11) NOT NULL, `SiteID` int(11) NOT NULL, `ArrivalDate` datetime NOT NULL, `LOS` int(11) NOT NULL, `Rate` decimal(12,2) NOT NULL, `RateDesc` varchar(1500), `ErrorCode` varchar(8) NOT NULL, `CurrencyCode` varchar(10), `TimeInserted` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (66.6ms)[0m  CREATE  INDEX `SiteID` USING btree ON `tfx_v2_unfilteredrates` (`SiteID`, `HotelID`) 
+  [1m[36m (76.6ms)[0m  [1mCREATE UNIQUE INDEX `index_tfx_Contacts_on_userid` USING btree ON `tfx_contacts` (`userid`) [0m
+  [1m[35m (39.6ms)[0m  SELECT version FROM `schema_migrations`
+  [1m[36m (43.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20160229042127')[0m
+  [1m[35m (41.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('1')
+  [1m[36m (39.6ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (40.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('1')
+  [1m[36m (40.6ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (40.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to ImportData (20160229080124)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229093926) do
+ActiveRecord::Schema.define(version: 20160303045832) do
 
   create_table "tfx_contacts", primary_key: "ContactID", force: :cascade do |t|
     t.string   "FirstName", limit: 100, null: false
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160229093926) do
     t.integer "SiteID",     limit: 4, null: false
   end
 
+  add_index "tfx_customershoppingsites", ["CustomerID"], name: "FK_tfx_CustomerShoppingSites_tfx_Customers", using: :btree
   add_index "tfx_customershoppingsites", ["SiteID"], name: "FK_tfx_CustomerShoppingSites_tfx_Sites", using: :btree
 
   create_table "tfx_hotelchains", primary_key: "HotelChainID", force: :cascade do |t|
@@ -139,11 +140,11 @@ ActiveRecord::Schema.define(version: 20160229093926) do
     t.string  "ParameterValue",  limit: 300, null: false
   end
 
+  add_index "tfx_siteparameters", ["HotelID"], name: "FK_tfx_SiteParameters_tfx_Hotels", using: :btree
   add_index "tfx_siteparameters", ["ParameterRoleID"], name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles", using: :btree
   add_index "tfx_siteparameters", ["SiteID"], name: "FK_tfx_SiteParameters_tfx_Sites", using: :btree
 
-  create_table "tfx_sites", id: false, force: :cascade do |t|
-    t.integer "SiteID",            limit: 4,   null: false
+  create_table "tfx_sites", primary_key: "SiteID", force: :cascade do |t|
     t.string  "SiteDesc",          limit: 300, null: false
     t.boolean "IsBranded",                     null: false
     t.integer "SearchTypeID",      limit: 4,   null: false
@@ -152,9 +153,8 @@ ActiveRecord::Schema.define(version: 20160229093926) do
     t.boolean "IsActive"
   end
 
-  create_table "tfx_v2_errorcodes", id: false, force: :cascade do |t|
-    t.integer "ErrorCodeID", limit: 4,    null: false
-    t.string  "ErrorCode",   limit: 8,    null: false
+  create_table "tfx_v2_errorcodes", primary_key: "ErrorCode", force: :cascade do |t|
+    t.integer "ErrorCodeID", limit: 4
     t.string  "ErrorDesc",   limit: 500,  null: false
     t.string  "ErrorSQL",    limit: 1000, null: false
   end
@@ -185,10 +185,9 @@ ActiveRecord::Schema.define(version: 20160229093926) do
   add_index "tfx_v2_queue", ["ArrivalDate"], name: "ArrivalDate", using: :btree
   add_index "tfx_v2_queue", ["RequestID", "SessionID"], name: "RequestID", using: :btree
 
-  create_table "tfx_v2_ratetypes", id: false, force: :cascade do |t|
-    t.integer "RateTypeID",        limit: 4,  null: false
-    t.string  "RateTypeDesc",      limit: 50, null: false
-    t.string  "RateTypeDescShort", limit: 10, null: false
+  create_table "tfx_v2_ratetypes", primary_key: "RateTypeID", force: :cascade do |t|
+    t.string "RateTypeDesc",      limit: 50, null: false
+    t.string "RateTypeDescShort", limit: 10, null: false
   end
 
   create_table "tfx_v2_scriptengines", primary_key: "ScriptEngineID", force: :cascade do |t|
@@ -215,4 +214,12 @@ ActiveRecord::Schema.define(version: 20160229093926) do
 
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree
 
+  add_foreign_key "tfx_customershoppinghotels", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_cusID"
+  add_foreign_key "tfx_customershoppinghotels", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_CustomerShoppingHotels_tfx_Hotels"
+  add_foreign_key "tfx_customershoppingsites", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_tfx_CustomerShoppingSites_tfx_Customers"
+  add_foreign_key "tfx_customershoppingsites", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_CustomerShoppingSites_tfx_Sites"
+  add_foreign_key "tfx_hotels", "tfx_hotelchains", column: "HotelChainID", primary_key: "HotelChainID", name: "FK_tfx_Hotels_tfx_HotelChains"
+  add_foreign_key "tfx_siteparameters", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_SiteParameters_tfx_Hotels"
+  add_foreign_key "tfx_siteparameters", "tfx_siteparameterroles", column: "ParameterRoleID", primary_key: "SiteParameterRoleID", name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles"
+  add_foreign_key "tfx_siteparameters", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_SiteParameters_tfx_Sites"
 end

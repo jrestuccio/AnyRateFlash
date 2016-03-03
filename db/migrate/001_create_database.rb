@@ -14,10 +14,7 @@
 class CreateDatabase < ActiveRecord::Migration
     def self.up      
 
-ActiveRecord::Schema.define(version: 20160229042127) do
-
-#run trendfxrates_fix_mysql.sql
-
+ActiveRecord::Schema.define(version: 20160302042127) do
 
   create_table "tfx_contacts", primary_key: "ContactID", force: :cascade do |t|
     t.string   "FirstName", limit: 100, null: false
@@ -155,11 +152,14 @@ ActiveRecord::Schema.define(version: 20160229042127) do
     t.boolean "IsActive"
   end
 
-  create_table "tfx_v2_errorcodes", primary_key: "ErrorCodeID", force: :cascade do |t|
+  create_table "tfx_v2_errorcodes", :id => false, force: :cascade do |t|
     t.string "ErrorCode", limit: 8,    null: false
+    t.integer "ErrorCodeID", options: 'Primary Key'
     t.string "ErrorDesc", limit: 500,  null: false
     t.string "ErrorSQL",  limit: 1000, null: false
   end
+
+  execute "ALTER TABLE `trendfxrates`.`tfx_v2_errorcodes` ADD PRIMARY KEY (`ErrorCode`);"
 
   create_table "tfx_v2_queue", id: false, force: :cascade do |t|
     t.integer  "RequestID",       limit: 4,   null: false
@@ -214,17 +214,22 @@ ActiveRecord::Schema.define(version: 20160229042127) do
     t.datetime "TimeInserted",                                       null: false
   end
 
-
-
-  #execute "ALTER TABLE tfx_v2_errorcodes CHANGE COLUMN ErrorCodeID ErrorCodeID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  #execute "ALTER TABLE tfx_sites CHANGE COLUMN SiteID SiteID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  #execute "ALTER TABLE tfx_v2_ratetypes CHANGE COLUMN RateTypeID RateTypeID INT(11) NOT NULL , DROP PRIMARY KEY;"
-  
-
-
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree
 
   add_index "tfx_contacts", ["userid"], name: "index_tfx_Contacts_on_userid", unique: true, using: :btree
+
+
+
+  add_foreign_key "tfx_customershoppinghotels", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_cusID"
+  add_foreign_key "tfx_customershoppinghotels", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_CustomerShoppingHotels_tfx_Hotels"
+  add_foreign_key "tfx_customershoppingsites", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_tfx_CustomerShoppingSites_tfx_Customers"
+  add_foreign_key "tfx_customershoppingsites", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_CustomerShoppingSites_tfx_Sites"
+  add_foreign_key "tfx_hotels", "tfx_hotelchains", column: "HotelChainID", primary_key: "HotelChainID", name: "FK_tfx_Hotels_tfx_HotelChains"
+  add_foreign_key "tfx_siteparameters", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_SiteParameters_tfx_Hotels"
+  add_foreign_key "tfx_siteparameters", "tfx_siteparameterroles", column: "ParameterRoleID", primary_key: "SiteParameterRoleID", name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles"
+  add_foreign_key "tfx_siteparameters", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_SiteParameters_tfx_Sites"
+
+
 
   
 end

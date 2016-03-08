@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20160303045832) do
 
   add_index "tfx_corporatecustomers", ["C_CustomerID"], name: "cus_id", using: :btree
 
+  create_table "tfx_customerregions", primary_key: "RegionID", force: :cascade do |t|
+    t.string  "RegionName",      limit: 300
+    t.string  "RegionShortName", limit: 25
+    t.integer "C_CustomerID",    limit: 4,   null: false
+  end
+
+  add_index "tfx_customerregions", ["C_CustomerID"], name: "FK_TFX_CustomerRegions_TFX_CorporateCustomers", using: :btree
+
   create_table "tfx_customers", primary_key: "CustomerID", force: :cascade do |t|
     t.string  "LoginCode",       limit: 15
     t.integer "CustomerChainID", limit: 4
@@ -74,6 +82,47 @@ ActiveRecord::Schema.define(version: 20160303045832) do
   add_index "tfx_customershoppingsites", ["CustomerID"], name: "FK_tfx_CustomerShoppingSites_tfx_Customers", using: :btree
   add_index "tfx_customershoppingsites", ["SiteID"], name: "FK_tfx_CustomerShoppingSites_tfx_Sites", using: :btree
 
+  create_table "tfx_customerstage", primary_key: "CustomerStageID", force: :cascade do |t|
+    t.integer  "HotelChainID",      limit: 4,   null: false
+    t.integer  "C_CustomerID",      limit: 4,   null: false
+    t.integer  "RegionID",          limit: 4
+    t.string   "CustomerName",      limit: 300, null: false
+    t.string   "Address",           limit: 300, null: false
+    t.string   "Address2",          limit: 255
+    t.string   "City",              limit: 255, null: false
+    t.string   "State",             limit: 2,   null: false
+    t.string   "Zip",               limit: 10,  null: false
+    t.string   "Country",           limit: 100, null: false
+    t.string   "Phone",             limit: 30,  null: false
+    t.integer  "ReportLength",      limit: 4,   null: false
+    t.integer  "ReportFrequency",   limit: 4,   null: false
+    t.boolean  "FlashFlag",                     null: false
+    t.string   "CustomerCode",      limit: 20
+    t.string   "ContactFirstName",  limit: 100, null: false
+    t.string   "ContactLastName",   limit: 100, null: false
+    t.string   "ContactEmail",      limit: 100, null: false
+    t.string   "DistrictCode",      limit: 255, null: false
+    t.string   "Contact2FirstName", limit: 100, null: false
+    t.string   "Contact2LastName",  limit: 100, null: false
+    t.string   "Contact2Email",     limit: 100, null: false
+    t.string   "Contact3FirstName", limit: 100, null: false
+    t.string   "Contact3LastName",  limit: 100, null: false
+    t.string   "Contact3Email",     limit: 100, null: false
+    t.integer  "Status",            limit: 4,   null: false
+    t.datetime "DateInserted",                  null: false
+    t.string   "QAPass",            limit: 25
+    t.datetime "QADate"
+    t.string   "LoginCode",         limit: 15
+  end
+
+  create_table "tfx_flashjobstatus", id: false, force: :cascade do |t|
+    t.string   "SessionID", limit: 50, null: false
+    t.datetime "StartDate",            null: false
+    t.datetime "EndDate"
+    t.integer  "JobSize",   limit: 4
+    t.boolean  "Status"
+  end
+
   create_table "tfx_hotelchains", primary_key: "HotelChainID", force: :cascade do |t|
     t.string  "ChainShortName", limit: 5,   null: false
     t.string  "ChainName",      limit: 200, null: false
@@ -96,6 +145,23 @@ ActiveRecord::Schema.define(version: 20160303045832) do
   end
 
   add_index "tfx_hotels", ["HotelChainID"], name: "FK_tfx_Hotels_tfx_HotelChains", using: :btree
+
+  create_table "tfx_l_contactcustomers", id: false, force: :cascade do |t|
+    t.integer "ContactID",  limit: 4, null: false
+    t.integer "CustomerID", limit: 4, null: false
+  end
+
+  add_index "tfx_l_contactcustomers", ["CustomerID"], name: "FK_TFX_L_ContactCustomers_tfx_customers", using: :btree
+
+  create_table "tfx_l_contactregions", id: false, force: :cascade do |t|
+    t.integer "ContactID", limit: 4, null: false
+    t.integer "RegionID",  limit: 4, null: false
+  end
+
+  create_table "tfx_l_regioncustomers", id: false, force: :cascade do |t|
+    t.integer "RegionID",   limit: 4, null: false
+    t.integer "CustomerID", limit: 4, null: false
+  end
 
   create_table "tfx_proxies", id: false, force: :cascade do |t|
     t.string   "Proxy",      limit: 30, null: false
@@ -214,11 +280,16 @@ ActiveRecord::Schema.define(version: 20160303045832) do
 
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree
 
+  add_foreign_key "tfx_customerregions", "tfx_corporatecustomers", column: "C_CustomerID", primary_key: "C_CustomerID", name: "FK_TFX_CustomerRegions_TFX_CorporateCustomers"
   add_foreign_key "tfx_customershoppinghotels", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_cusID"
   add_foreign_key "tfx_customershoppinghotels", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_CustomerShoppingHotels_tfx_Hotels"
   add_foreign_key "tfx_customershoppingsites", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_tfx_CustomerShoppingSites_tfx_Customers"
   add_foreign_key "tfx_customershoppingsites", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_CustomerShoppingSites_tfx_Sites"
   add_foreign_key "tfx_hotels", "tfx_hotelchains", column: "HotelChainID", primary_key: "HotelChainID", name: "FK_tfx_Hotels_tfx_HotelChains"
+  add_foreign_key "tfx_l_contactcustomers", "tfx_contacts", column: "ContactID", primary_key: "ContactID", name: "FK_TFX_L_ContactCustomers_TFX_Contacts"
+  add_foreign_key "tfx_l_contactcustomers", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_TFX_L_ContactCustomers_tfx_customers"
+  add_foreign_key "tfx_l_contactregions", "tfx_contacts", column: "ContactID", primary_key: "ContactID", name: "FK_TFX_L_ContactRegions_TFX_Contacts"
+  add_foreign_key "tfx_l_regioncustomers", "tfx_customerregions", column: "RegionID", primary_key: "RegionID", name: "FK_TFX_L_RegionCustomers_TFX_CustomerRegions"
   add_foreign_key "tfx_siteparameters", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_SiteParameters_tfx_Hotels"
   add_foreign_key "tfx_siteparameters", "tfx_siteparameterroles", column: "ParameterRoleID", primary_key: "SiteParameterRoleID", name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles"
   add_foreign_key "tfx_siteparameters", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_SiteParameters_tfx_Sites"

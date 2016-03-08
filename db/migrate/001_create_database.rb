@@ -214,10 +214,78 @@ ActiveRecord::Schema.define(version: 20160302042127) do
     t.datetime "TimeInserted",                                       null: false
   end
 
+  create_table "tfx_flashjobstatus", :id => false do |t|
+    t.string "SessionID",       limit: 50,                           null: false
+    t.datetime "StartDate",                                          null: false
+    t.datetime "EndDate"
+    t.integer "JobSize"
+    t.boolean "Status"
+  end
+
+  create_table "tfx_l_contactregions", id: false, force: :cascade  do |t|
+    t.integer "ContactID",                                            null: false
+    t.integer "RegionID",                                             null: false
+  end
+
+  execute "ALTER TABLE `trendfxrates`.`tfx_l_contactregions` ADD PRIMARY KEY (ContactID,RegionID);"
+
+  create_table "tfx_l_contactcustomers", id: false, force: :cascade  do |t|
+    t.integer "ContactID",                                            null: false
+    t.integer "CustomerID",                                           null: false
+  end
+
+  execute "ALTER TABLE `trendfxrates`.`tfx_l_contactcustomers` ADD PRIMARY KEY (ContactID,CustomerID);"
+
+  create_table "tfx_customerregions", primary_key: "RegionID", force: :cascade do |t|
+    t.string "RegionName",           limit: 300
+    t.string "RegionShortName",       limit: 25
+    t.integer "C_CustomerID",                                      null: false
+  end
+
+  create_table "tfx_l_regioncustomers", id: false, force: :cascade   do |t|
+    t.integer "RegionID",                                             null: false
+    t.integer "CustomerID",                                           null: false
+  end
+
+  execute "ALTER TABLE `trendfxrates`.`tfx_l_regioncustomers` ADD PRIMARY KEY (RegionID,CustomerID);"
+
+  create_table "tfx_customerstage", primary_key: "CustomerStageID", force: :cascade do |t|
+    t.integer "HotelChainID",                                         null: false
+    t.integer "C_CustomerID",                                         null: false
+    t.integer "RegionID"                                             
+    t.string "CustomerName",          limit: 300,                     null: false
+    t.string "Address",               limit: 300,                     null: false
+    t.string "Address2"
+    t.string "City",                                                  null: false
+    t.string "State",                 limit: 2,                       null: false
+    t.string "Zip",                   limit: 10,                      null: false
+    t.string "Country",               limit: 100,                     null: false
+    t.string "Phone",                 limit: 30,                      null: false
+    t.integer "ReportLength",                                         null: false
+    t.integer "ReportFrequency",                                      null: false
+    t.boolean "FlashFlag",                                            null: false
+    t.string "CustomerCode",          limit: 20
+    t.string "ContactFirstName",      limit: 100,                     null: false
+    t.string "ContactLastName",       limit: 100,                     null: false
+    t.string "ContactEmail",          limit: 100,                     null: false
+    t.string "DistrictCode",                                          null: false
+    t.string "Contact2FirstName",     limit: 100,                    null: false
+    t.string "Contact2LastName",      limit: 100,                    null: false
+    t.string "Contact2Email",         limit: 100,                    null: false
+    t.string "Contact3FirstName",     limit: 100,                    null: false
+    t.string "Contact3LastName",      limit: 100,                    null: false
+    t.string "Contact3Email",         limit: 100,                    null: false
+    t.integer "Status",                                               null: false
+    t.datetime "DateInserted",                                        null: false
+    t.string "QAPass",                limit: 25
+    t.datetime "QADate"
+    t.string "LoginCode",             limit: 15
+  end
+
+
   add_index "tfx_v2_unfilteredrates", ["SiteID", "HotelID"], name: "SiteID", using: :btree
 
   add_index "tfx_contacts", ["userid"], name: "index_tfx_Contacts_on_userid", unique: true, using: :btree
-
 
 
   add_foreign_key "tfx_customershoppinghotels", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_cusID"
@@ -228,8 +296,14 @@ ActiveRecord::Schema.define(version: 20160302042127) do
   add_foreign_key "tfx_siteparameters", "tfx_hotels", column: "HotelID", primary_key: "HotelID", name: "FK_tfx_SiteParameters_tfx_Hotels"
   add_foreign_key "tfx_siteparameters", "tfx_siteparameterroles", column: "ParameterRoleID", primary_key: "SiteParameterRoleID", name: "FK_tfx_SiteParameters_tfx_SiteParameterRoles"
   add_foreign_key "tfx_siteparameters", "tfx_sites", column: "SiteID", primary_key: "SiteID", name: "FK_tfx_SiteParameters_tfx_Sites"
+  add_foreign_key "tfx_l_contactcustomers", "tfx_contacts", column: "ContactID", primary_key: "ContactID", name: "FK_TFX_L_ContactCustomers_TFX_Contacts"
+  add_foreign_key "tfx_l_contactcustomers", "tfx_customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_TFX_L_ContactCustomers_tfx_customers"
+  add_foreign_key "tfx_l_contactregions", "tfx_contacts", column: "ContactID", primary_key: "ContactID", name: "FK_TFX_L_ContactRegions_TFX_Contacts"
+  
+  add_foreign_key "tfx_l_regioncustomers", "tfx_customerregions", column: "RegionID", primary_key: "RegionID", name: "FK_TFX_L_RegionCustomers_TFX_CustomerRegions"
 
-
+  add_foreign_key "tfx_customerregions", "tfx_corporatecustomers", column: "C_CustomerID", primary_key: "C_CustomerID", name: "FK_TFX_CustomerRegions_TFX_CorporateCustomers"
+  #add_foreign_key "tfx_customerregions", "tfx_customerstage", column: "RegionID", primary_key: "RegionID", name: "FK_TFX_CustomerRegions_TFX_CustomerStage"
 
   
 end

@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AnyRateFlash</title>
-  
+  <title>Any Rate</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+	
+	<%= render 'layouts/navbar' %>
+   
+    <!-- Content -->
+    <main>
 
+    	<!-- Flash notification and page top -->
+    	
+		
+			
+		<!-- Individual Page Templates Area -->
+  		<%= yield %>
 
-<%= yield %>
+     	
+    </main>
 
 </body>
 </html>

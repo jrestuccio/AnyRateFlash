@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  
+  # Current homepage/no authentication
+  root 'static_pages#welcome'
 
-
+  get 'static_pages/welcome', to: 'static_pages#welcome', as: 'welcome'
+  post 'static_pages/welcome', to: 'static_pages#logon'
+  get 'static_pages/:id/flash', to: 'static_pages#flash', as: 'flash'
   
   resources :tfx_contacts
   resources :tfx_hotels

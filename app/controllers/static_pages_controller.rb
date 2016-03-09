@@ -26,8 +26,12 @@ class StaticPagesController < ApplicationController
   def flash
   	@userat = TfxContact.find(params[:id])
 
-  	# 
-  	@hotels = ActiveRecord::Base.connection.execute("usp_getCustomersByEmail '" + @userat.UserID "'")
+  	# used to get the hotels
+  	@hotels = ActiveRecord::Base.connection.execute("call usp_getCustomersByEmail('" + @userat.UserID + "')")
+
+  	@arrDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "EveryDay"]
+  
+  	# @hotels = hquery.fetch_all
   end
 
 end

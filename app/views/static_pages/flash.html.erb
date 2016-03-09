@@ -6,6 +6,9 @@
          <div class="card-content">
       
                 <%= @userat.UserID %>
+
+                <%= collection_select(:CustomerID, @hotels, :CustomerID, :CustomerName, {prompt: "Select a property"}, {class: "select-two select-two-style"}) %>
+          
               
           </div>
         </div>

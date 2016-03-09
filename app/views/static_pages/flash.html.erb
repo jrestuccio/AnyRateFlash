@@ -1,12 +1,59 @@
+
 <section class="container">
   <div class="section">
-    <div class="row">
-      <div class="col s12 m8 offset-m2 l8 offset-l2 ">
-       <div class="card">
-         <div class="card-content">
-      
-                <%= @userat.UserID %>
-              
+    <div class="card">
+      <div class="card-content"> 
+        <div class="row">
+          <div class="col s12 m10 offset-m1 ">
+             <form>
+              <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
+              <div class="row">
+                <div class="col s12 m6">
+                  <%= select(:CustomerName, :CustomerID, @hotels.map{|h| [ h[1], h[0] ]}, {prompt: "Select a property"}, {class: "select-two select-two-style"}) %>
+                </div>
+                <div class="col s12 m6 ">
+                <%= select(:los, :los, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                <h6>Select Arrival Date</h6>
+                </div>
+              </div>
+              <div class="row">
+              <% @arrDays.each do |day| %>
+                <% if day == 'EveryDay' %>
+                  <div class="col s12 m3 ">
+                    <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll()' %>
+                    <%= label_tag day.html_safe %>
+                  </div>
+                <%else %>
+                  <div class="col s12 m3 ">
+                    <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day %>
+                    <%= label_tag day.html_safe %>
+                  </div>
+                <% end %>
+
+              <% end %>
+              </div>
+              <div class="row">
+                <div class="col s12 m6">
+                <%= label_tag "start_date" %>
+                  <%=  date_field_tag 'start_date', nil, class: 'datepicker' %>
+
+                  <!-- <input type="date" class="datepicker"> -->
+                </div>
+
+                <div class="col s12 m6">
+                <%= label_tag "end_date" %>
+                  <%=  date_field_tag 'end_date', nil, class: 'datepicker' %>
+                </div>
+
+              </div>
+              <div class="actions waves-effect waves-light btn">
+                <%= submit_tag "Continue" %>
+              </div>
+              </form>    
           </div>
         </div>
       </div>

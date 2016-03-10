@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="row">
-              <% @arrDays.each do |day| %>
+              <% @arr_days.each do |day| %>
                 <% if day == 'EveryDay' %>
                   <div class="col s12 m3 ">
                     <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll()' %>

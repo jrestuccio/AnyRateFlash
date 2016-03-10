@@ -29,8 +29,14 @@ class StaticPagesController < ApplicationController
   	# used to get the hotels
   	@hotels = ActiveRecord::Base.connection.execute("call usp_getCustomersByEmail('" + @userat.UserID + "')")
 
-  	@arrDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "EveryDay"]
+  	@arr_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "EveryDay"]
   
+    # pulling params from the page
+    days_selected = params[:selected_days]
+    cust_name = params[:CustomerName]
+    cust_id = params[:CustomerID]
+    s_date = params[:start_date]
+    e_date = params[:end_date]
   	# @hotels = hquery.fetch_all
   end
 

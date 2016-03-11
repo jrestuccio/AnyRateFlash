@@ -52,12 +52,17 @@ class StaticPagesController < ApplicationController
 
   # Still an issue with retriving the hash
   def flashRefineSearch
+    @userat = TfxContact.find(params[:id])
     # phash3 = phash2
 
+    #@show_hotels = [1,2]  # ActiveRecord::Base.connection.execute("call usp_GetFlashHotelsForCustomer('" + @phash[:CustomerID] + "')")
 
-    @show_hotels = [1,2]  # ActiveRecord::Base.connection.execute("call usp_GetFlashHotelsForCustomer('" + @phash[:CustomerID] + "')")
+    #@show_sites = [1,2] # ActiveRecord::Base.connection.execute("call usp_GetFlashSitesForCustomer('" + @phash[:CustomerID] + "')")
+    @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomer(3224)")
+    ActiveRecord::Base.clear_active_connections!
+    @show_sites = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
+    
 
-    @show_sites = [1,2] # ActiveRecord::Base.connection.execute("call usp_GetFlashSitesForCustomer('" + @phash[:CustomerID] + "')")
   end
 
   def continue3

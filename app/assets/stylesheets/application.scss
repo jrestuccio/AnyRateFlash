@@ -14,9 +14,10 @@
  *= require_self
  */
 
-/* Not sure if this is needed yet. */
-/*@import "materialize/components/color";
-$primary-color: color("blue", "lighten-2") !default;*/
+
+@import "materialize/components/color";
+$primary-color: color("amber", "darken-3") !default;
+$secondary-color: color("indigo", "base") !default;
 
 @import 'materialize';
 
@@ -26,8 +27,15 @@ $primary-color: color("blue", "lighten-2") !default;*/
 		padding-left: 240px;
 	}
 	.parallax-container {
-      height: 700px;
-    }
+    height: 700px;
+  }
+  
+  .menu-container{
+    height: 30px;
+  
+  }
+
+
 
 }
 
@@ -52,3 +60,19 @@ img{
 	max-height: 1000px;
 	width: auto;
 }
+
+.brand-logo{
+  padding-top: 10px;
+  max-width: 180px;
+  /*max-height: 57px;*/
+
+}
+.menu-container{
+  padding-top:5px;
+  margin-bottom: 20px;
+}
+.purps{
+    width: 30px;
+    height: 100%;
+  }
+

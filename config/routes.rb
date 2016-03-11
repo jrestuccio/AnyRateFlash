@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   post 'static_pages/:id/flash', to: 'static_pages#continue'
 
   get 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#flashRefineSearchRateTypes', as: 'flashRefineSearchRateTypes'
+  post 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#continue2'
+
+  get 'static_pages/:id/flashRefineSearch', to: 'static_pages#flashRefineSearch', as: 'flashRefineSearch'
+  post 'static_pages/:id/flashRefineSearch', to: 'static_pages#continue3'
   
 
   resources :tfx_contacts

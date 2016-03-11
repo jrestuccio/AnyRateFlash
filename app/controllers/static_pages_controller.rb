@@ -23,16 +23,17 @@ class StaticPagesController < ApplicationController
   	@arr_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "EveryDay"]
   
     # pulling params from the page
-    days_selected = params[:selected_days]
-    cust_name = params[:CustomerName]
-    cust_id = params[:CustomerID]
-    s_date = params[:start_date]
-    e_date = params[:end_date]
+    # days_selected = params[:selected_days]
+    # cust_name = params[:CustomerName]
+    # cust_id = params[:CustomerID]
+    # s_date = params[:start_date]
+    # e_date = params[:end_date]
   	# @hotels = hquery.fetch_all
   end
   
-  def continue    
-    redirect_to flashRefineSearchRateTypes_path()      
+  def continue 
+    phash = params.clone   
+    redirect_to flashRefineSearchRateTypes_path(phash)      
   end
 
 
@@ -40,5 +41,17 @@ class StaticPagesController < ApplicationController
     @rateTypes = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateTypes")
   end
 
+  def continue2 
+    phash = params.clone   
+    redirect_to flashRefineSearch_path(phash)      
+  end
+
+  def flashRefineSearch
+
+  end
+
+  def continue3
+
+  end
 
 end

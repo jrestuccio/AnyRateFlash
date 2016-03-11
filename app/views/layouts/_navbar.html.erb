@@ -3,13 +3,13 @@
 		<!-- Side Navbar for user not signed in -->
       	<% if current_page?('/static_pages/welcome') %>
       		<ul class="side-nav fixed hide-on-med-and-down section table-of-contents">
-				<li><a href="#page-top" class="brand-logo"><i>Logo</i></a></li>
+				<li><a href="#page-top" class="brand-logo"><%=image_tag "flash_logo.png", class: "brand-logo"%></a></li>
 	    		<li><a class="waves-effect waves-purple" href="#login">Log in</a></li>
 	    		<li><a class="waves-effect waves-purple" href="#about">About</a></li>
 	    		<li><a class="waves-effect waves-purple" href="#contact">Contact</a></li>
 	  		</ul>
 	  		<ul id="slide-out" class="side-nav section table-of-contents">
-	  			<li><a href="#page-top" class="brand-logo"><i>Logo</i></a></li>
+	  			<li><a href="#page-top" class="brand-logo"><%=image_tag "flash_logo.png", class: "brand-logo"%></a></li>
 	   			<li><a class="waves-effect waves-purple" href="#login">Log on</a></li>
 	    		<li><a class="waves-effect waves-purple" href="#about">About</a></li>
 	    		<li><a class="waves-effect waves-purple" href="#contact">Contact</a></li>
@@ -19,18 +19,18 @@
       	<!-- Side Navbar for user signed in -->
       	<% if not current_page?('/static_pages/welcome') %>
 			<ul class="side-nav fixed hide-on-med-and-down">
-				<li><a href="#!" class="brand-logo"><i>Logo</i></a></li>
+				<li><a href="#!" class="brand-logo"><%=image_tag "flash_logo.png", class: "brand-logo"%></a></li>
 	    		<li></li>
 	  		</ul>
 	  		<ul id="slide-out" class="side-nav">
-	   			<li><a href="#!" class="brand-logo"><i>Logo</i></a></li>
+	   			<li><a href="#!" class="brand-logo"><%=image_tag "flash_logo.png", class: "brand-logo"%></a></li>
 	   			<li></li>
 	 		</ul>
  		<% end %>
 
  		<!-- Menu button -->
- 		<div class="container">
-  			<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="small mdi-navigation-menu"></i></a>
+ 		<div class="menu-container amber darken-3 z-depth-2">
+  			<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="small mdi-navigation-menu "></i></a>
   		</div>
 
     </header>

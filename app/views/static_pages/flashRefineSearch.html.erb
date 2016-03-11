@@ -2,7 +2,15 @@
   <div class="card">
     <div class="card-content"> 
       <div class="row">
+      <h6> Hotels </h6>
        <%= form_tag flashRefineSearch_path do %>
+
+             <% @show_hotels.each do |hotel| %>                                    
+                    <div class="col s12">
+                      <%= check_box_tag "selected_hotels[]", hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
+                      <%= label_tag hotel.to_s.html_safe %>
+                    </div>
+              <% end %>
             <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
             <div class="row">
 
@@ -16,7 +24,12 @@
                   </div>
                 </div>
                 <div class="row">
-                
+                <% @show_sites.each do |site| %>                                    
+                    <div class="col s12">
+                      <%= check_box_tag "selected_sites[]", site, params[:selected_sites] && params[:selected_sites].include?(site), :id => site %>                    
+                      <%= label_tag site.to_s.html_safe %>
+                    </div>
+              <% end %>
                 
                 </div>
                 <div class="row">

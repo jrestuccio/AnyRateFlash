@@ -10,18 +10,9 @@ class StaticPagesController < ApplicationController
   	@user = TfxContact.where(["UserID = ? and Password = ?", params[:user_name], params[:password]]).first
   	redirect_to flash_path(@user)
 
-		  # 	@sqlcom = "SELECT 
-				# 			*
-				# 		FROM
-				# 			TFX_Contacts
-				# 		WHERE 
-				# 			
-				# 		
-				# @item = ActiveRecord::Base.connection.execute(@sqlcom)
-		  # sSQL = "SELECT * FROM TFX_Contacts WHERE UserID = '" & Request("UserID") & "' "
-		  #   sSQL = sSQL & "AND Password = '" & Request("Password") & "' "
-
   end
+
+
 
   def flash
   	@userat = TfxContact.find(params[:id])
@@ -39,5 +30,15 @@ class StaticPagesController < ApplicationController
     e_date = params[:end_date]
   	# @hotels = hquery.fetch_all
   end
+  
+  def continue    
+    redirect_to flashRefineSearchRateTypes_path()      
+  end
+
+
+  def flashRefineSearchRateTypes
+    @rateTypes = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateTypes")
+  end
+
 
 end

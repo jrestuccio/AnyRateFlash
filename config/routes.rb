@@ -6,9 +6,14 @@ Rails.application.routes.draw do
   get 'static_pages/welcome', to: 'static_pages#welcome', as: 'welcome'
   post 'static_pages/welcome', to: 'static_pages#logon'
   get 'static_pages/:id/flash', to: 'static_pages#flash', as: 'flash'
+  post 'static_pages/:id/flash', to: 'static_pages#continue'
+
+  get 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#flashRefineSearchRateTypes', as: 'flashRefineSearchRateTypes'
   
+
   resources :tfx_contacts
   resources :tfx_hotels
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

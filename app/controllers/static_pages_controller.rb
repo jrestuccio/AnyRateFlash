@@ -42,6 +42,7 @@ class StaticPagesController < ApplicationController
   def flashRefineSearchRateTypes
     # phash2 = phash
     @rateTypes = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateTypes")
+    # @rateFilters = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateFilters")
   end
 
   def continue2 

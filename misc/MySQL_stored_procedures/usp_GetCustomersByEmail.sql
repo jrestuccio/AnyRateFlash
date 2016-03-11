@@ -1,9 +1,6 @@
-USE `trendfxrates`;
- 
-
 DELIMITER //
 
-CREATE PROCEDURE usp_getCustomersByEmail (
+CREATE PROCEDURE usp_GetCustomersByEmail (
 		p_Login	varchar(100))
 
 BEGIN

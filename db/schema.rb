@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20160303045832) do
 
+  create_table "TFX_CompsetProfiles", id: false, force: :cascade do |t|
+    t.integer "CustomerID",        limit: 4,                          null: false
+    t.integer "HotelID",           limit: 4,                          null: false
+    t.integer "Rooms",             limit: 4
+    t.decimal "Stars",                       precision: 18, scale: 2
+    t.decimal "DistanceFromHost",            precision: 18, scale: 2
+    t.decimal "TripAdvisorRating",           precision: 18, scale: 2
+  end
+
   create_table "TFX_Contacts", primary_key: "ContactID", force: :cascade do |t|
     t.string   "FirstName", limit: 100, null: false
     t.string   "LastName",  limit: 100, null: false
@@ -36,6 +45,43 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.string  "Phone",             limit: 10
   end
 
+  create_table "TFX_CurrencyCodes", primary_key: "CurrencyCode", force: :cascade do |t|
+    t.string "Country", limit: 255, null: false
+  end
+
+  create_table "TFX_CurrencyExchange", primary_key: "CurrencyCode", force: :cascade do |t|
+    t.decimal "ExchangeRate", precision: 19, scale: 4, null: false
+  end
+
+  create_table "TFX_CurrencyTranslations", id: false, force: :cascade do |t|
+    t.string  "CurrencyCode", limit: 3,   null: false
+    t.string  "Word",         limit: 100, null: false
+    t.integer "SiteID",       limit: 4,   null: false
+  end
+
+  add_index "TFX_CurrencyTranslations", ["SiteID"], name: "FK_TFX_CurrencyTranslations_TFX_Sites", using: :btree
+
+  create_table "TFX_CustomerPreferenceRoles", primary_key: "PrefRoleID", force: :cascade do |t|
+    t.string  "PrefRoleDesc",    limit: 200, null: false
+    t.string  "PrefRoleName",    limit: 200
+    t.string  "PrefDataType",    limit: 7,   null: false
+    t.integer "PrefDependency",  limit: 4
+    t.integer "PrefDataLength",  limit: 4
+    t.string  "PrefDataTable",   limit: 25
+    t.string  "PrefDataDefault", limit: 50
+  end
+
+  create_table "TFX_CustomerPreferences", primary_key: "CustomerPreferenceID", force: :cascade do |t|
+    t.integer "CustomerID",       limit: 4
+    t.integer "ContactID",        limit: 4
+    t.integer "PreferenceRoleID", limit: 4,   null: false
+    t.string  "PreferenceValue",  limit: 100, null: false
+    t.integer "SiteID",           limit: 4
+    t.integer "HotelID",          limit: 4
+  end
+
+  add_index "TFX_CustomerPreferences", ["PreferenceRoleID"], name: "FK_TFX_CustomerPreferences_TFX_CustomerPreferenceRoles", using: :btree
+
   create_table "TFX_CustomerRegions", primary_key: "RegionID", force: :cascade do |t|
     t.string  "RegionName",      limit: 600
     t.string  "RegionShortName", limit: 50
@@ -49,7 +95,6 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.integer "HotelID",    limit: 4, null: false
   end
 
-  add_index "TFX_CustomerShoppingHotels", ["CustomerID"], name: "FK_TFX_CustomerShoppingHotels_TFX_Customers", using: :btree
   add_index "TFX_CustomerShoppingHotels", ["HotelID"], name: "FK_TFX_CustomerShoppingHotels_TFX_Hotels", using: :btree
 
   create_table "TFX_CustomerShoppingSites", id: false, force: :cascade do |t|
@@ -57,7 +102,6 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.integer "SiteID",     limit: 4, null: false
   end
 
-  add_index "TFX_CustomerShoppingSites", ["CustomerID"], name: "FK_TFX_CustomerShoppingSites_TFX_Customers", using: :btree
   add_index "TFX_CustomerShoppingSites", ["SiteID"], name: "FK_TFX_CustomerShoppingSites_TFX_Sites", using: :btree
 
   create_table "TFX_Customers", primary_key: "CustomerID", force: :cascade do |t|
@@ -82,6 +126,12 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.datetime "EndDate"
     t.integer  "JobSize",   limit: 4
     t.string   "Status",    limit: 1
+  end
+
+  create_table "TFX_FlashLog", id: false, force: :cascade do |t|
+    t.integer  "ContactID", limit: 4,   null: false
+    t.string   "SessionID", limit: 100, null: false
+    t.datetime "RunDate",               null: false
   end
 
   create_table "TFX_HotelChains", primary_key: "HotelChainID", force: :cascade do |t|
@@ -112,7 +162,6 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.integer "CustomerID", limit: 4, null: false
   end
 
-  add_index "TFX_L_ContactCustomers", ["ContactID"], name: "FK_TFX_L_ContactCustomers_TFX_Contacts", using: :btree
   add_index "TFX_L_ContactCustomers", ["CustomerID"], name: "FK_TFX_L_ContactCustomers_TFX_Customers", using: :btree
 
   create_table "TFX_L_ContactRegions", id: false, force: :cascade do |t|
@@ -120,15 +169,12 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.integer "RegionID",  limit: 4, null: false
   end
 
-  add_index "TFX_L_ContactRegions", ["ContactID"], name: "FK_TFX_L_ContactRegions_TFX_Contacts", using: :btree
   add_index "TFX_L_ContactRegions", ["RegionID"], name: "FK_TFX_L_ContactRegions_TFX_CustomerRegions", using: :btree
 
   create_table "TFX_L_RegionCustomers", id: false, force: :cascade do |t|
     t.integer "RegionID",   limit: 4, null: false
     t.integer "CustomerID", limit: 4, null: false
   end
-
-  add_index "TFX_L_RegionCustomers", ["RegionID"], name: "FK_TFX_L_RegionCustomers_TFX_CustomerRegions", using: :btree
 
   create_table "TFX_Proxies", id: false, force: :cascade do |t|
     t.string   "Proxy",      limit: 30, null: false
@@ -182,15 +228,36 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.boolean "IsActive"
   end
 
-  create_table "TFX_V2_ErrorCodes", id: false, force: :cascade do |t|
-    t.string  "ErrorCode",   limit: 8,    null: false
-    t.integer "ErrorCodeID", limit: 4,    null: false
-    t.string  "ErrorDesc",   limit: 500,  null: false
-    t.string  "ErrorSQL",    limit: 1000, null: false
+  create_table "TFX_V2_ErrorCodes", primary_key: "ErrorCodeID", force: :cascade do |t|
+    t.string "ErrorCode", limit: 8,    null: false
+    t.string "ErrorDesc", limit: 500,  null: false
+    t.string "ErrorSQL",  limit: 1000, null: false
   end
 
-  create_table "TFX_V2_Queue", id: false, force: :cascade do |t|
-    t.integer  "RequestID",       limit: 4,                   null: false
+  create_table "TFX_V2_L_ContactShoppingCurrencies", primary_key: "ContactID", force: :cascade do |t|
+    t.string "CurrencyCode", limit: 3, null: false
+  end
+
+  create_table "TFX_V2_L_LexiconRateTypes", id: false, force: :cascade do |t|
+    t.integer "WordID",     limit: 4, default: 0, null: false
+    t.integer "RateTypeID", limit: 4, default: 0, null: false
+    t.integer "LexiconID",  limit: 4, default: 0, null: false
+  end
+
+  add_index "TFX_V2_L_LexiconRateTypes", ["LexiconID"], name: "FK_TFX_V2_L_LexiconRateTypes_TFX_V2_LexiconDesc", using: :btree
+  add_index "TFX_V2_L_LexiconRateTypes", ["RateTypeID"], name: "FK_TFX_V2_L_LexiconRateTypes_TFX_V2_RateTypes", using: :btree
+  add_index "TFX_V2_L_LexiconRateTypes", ["WordID", "RateTypeID", "LexiconID"], name: "IX_TFX_V2_L_LexiconRateTypes", using: :btree
+
+  create_table "TFX_V2_Lexicon", primary_key: "WordID", force: :cascade do |t|
+    t.string "Word", limit: 100
+  end
+
+  create_table "TFX_V2_LexiconDesc", primary_key: "LexiconID", force: :cascade do |t|
+    t.string "LexiconCode", limit: 3,   null: false
+    t.string "LexiconDesc", limit: 500, null: false
+  end
+
+  create_table "TFX_V2_Queue", primary_key: "RequestID", force: :cascade do |t|
     t.integer  "HotelID",         limit: 4,                   null: false
     t.integer  "SiteID",          limit: 4,                   null: false
     t.datetime "ArrivalDate",                                 null: false
@@ -212,17 +279,15 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.boolean  "InProgress",                  default: false, null: false
   end
 
-  create_table "TFX_V2_RateTypes", id: false, force: :cascade do |t|
-    t.integer "RateTypeID",        limit: 4,  null: false
-    t.string  "RateTypeDesc",      limit: 50, null: false
-    t.string  "RateTypeDescShort", limit: 10, null: false
+  create_table "TFX_V2_RateTypes", primary_key: "RateTypeID", force: :cascade do |t|
+    t.string "RateTypeDesc",      limit: 50, null: false
+    t.string "RateTypeDescShort", limit: 10, null: false
   end
 
-  create_table "TFX_V2_ScriptEngines", id: false, force: :cascade do |t|
-    t.integer "ScriptEngineID",   limit: 4,   null: false
-    t.string  "ScriptEngineDesc", limit: 200, null: false
-    t.string  "ScriptEngineExt",  limit: 5
-    t.string  "ScriptEngineApp",  limit: 20
+  create_table "TFX_V2_ScriptEngines", primary_key: "ScriptEngineID", force: :cascade do |t|
+    t.string "ScriptEngineDesc", limit: 200, null: false
+    t.string "ScriptEngineExt",  limit: 5
+    t.string "ScriptEngineApp",  limit: 20
   end
 
   create_table "TFX_V2_SiteTimeOuts", primary_key: "SiteID", force: :cascade do |t|
@@ -242,6 +307,12 @@ ActiveRecord::Schema.define(version: 20160303045832) do
     t.datetime "TimeInserted",                                                       null: false
   end
 
+  add_index "TFX_V2_UnfilteredRates", ["HotelID", "SiteID"], name: "IX_TFX_V2_UnfilteredRatesns_HotelID_SiteID", using: :btree
+
+  add_foreign_key "TFX_CurrencyExchange", "TFX_CurrencyCodes", column: "CurrencyCode", primary_key: "CurrencyCode", name: "FK_TFX_CurrencyExchange_TFX_CurrencyCodes"
+  add_foreign_key "TFX_CurrencyTranslations", "TFX_CurrencyCodes", column: "CurrencyCode", primary_key: "CurrencyCode", name: "FK_TFX_CurrencyTranslations_TFX_CurrencyCodes"
+  add_foreign_key "TFX_CurrencyTranslations", "TFX_Sites", column: "SiteID", primary_key: "SiteID", name: "FK_TFX_CurrencyTranslations_TFX_Sites"
+  add_foreign_key "TFX_CustomerPreferences", "TFX_CustomerPreferenceRoles", column: "PreferenceRoleID", primary_key: "PrefRoleID", name: "FK_TFX_CustomerPreferences_TFX_CustomerPreferenceRoles"
   add_foreign_key "TFX_CustomerRegions", "TFX_CorporateCustomers", column: "C_CustomerID", primary_key: "C_CustomerID", name: "FK_TFX_CustomerRegions_TFX_CorporateCustomers"
   add_foreign_key "TFX_CustomerShoppingHotels", "TFX_Customers", column: "CustomerID", primary_key: "CustomerID", name: "FK_TFX_CustomerShoppingHotels_TFX_Customers"
   add_foreign_key "TFX_CustomerShoppingHotels", "TFX_Hotels", column: "HotelID", primary_key: "HotelID", name: "FK_TFX_CustomerShoppingHotels_TFX_Hotels"
@@ -254,4 +325,7 @@ ActiveRecord::Schema.define(version: 20160303045832) do
   add_foreign_key "TFX_L_ContactRegions", "TFX_CustomerRegions", column: "RegionID", primary_key: "RegionID", name: "FK_TFX_L_ContactRegions_TFX_CustomerRegions"
   add_foreign_key "TFX_L_RegionCustomers", "TFX_CustomerRegions", column: "RegionID", primary_key: "RegionID", name: "FK_TFX_L_RegionCustomers_TFX_CustomerRegions"
   add_foreign_key "TFX_SiteParameters", "TFX_SiteParameterRoles", column: "ParameterRoleID", primary_key: "SiteParameterRoleID", name: "FK_TFX_SiteParameters_TFX_SiteParameterRoles"
+  add_foreign_key "TFX_V2_L_LexiconRateTypes", "TFX_V2_Lexicon", column: "WordID", primary_key: "WordID", name: "FK_TFX_V2_L_LexiconRateTypes_TFX_V2_Lexicon"
+  add_foreign_key "TFX_V2_L_LexiconRateTypes", "TFX_V2_LexiconDesc", column: "LexiconID", primary_key: "LexiconID", name: "FK_TFX_V2_L_LexiconRateTypes_TFX_V2_LexiconDesc"
+  add_foreign_key "TFX_V2_L_LexiconRateTypes", "TFX_V2_RateTypes", column: "RateTypeID", primary_key: "RateTypeID", name: "FK_TFX_V2_L_LexiconRateTypes_TFX_V2_RateTypes"
 end

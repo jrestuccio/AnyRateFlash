@@ -9,9 +9,9 @@ SELECT DISTINCT
  	-- Direct Access from contactCustomers
  	c.CustomerID,
 	c.CustomerName
-FROM	tfx_customers c,
- 	tfx_contacts ct,
- 	tfx_l_contactcustomers lcc
+FROM	TFX_customers c,
+ 	TFX_Contacts ct,
+ 	TFX_L_ContactCustomers lcc
 WHERE	ct.userID = p_Login
 	AND	ct.ContactID = lcc.ContactID
 	AND	lcc.CustomerID = c.CustomerID
@@ -22,17 +22,17 @@ SELECT DISTINCT
  	-- Indirect Access from contactRegions
  	c.CustomerID,
 	c.CustomerName
-FROM	tfx_customers c,
-	tfx_contacts ct,
- 	tfx_l_contactregions lcr,
- 	tfx_l_regioncustomers lrc
+FROM	TFX_Customers c,
+	TFX_Contacts ct,
+ 	TFX_L_ContactRegions lcr,
+ 	TFX_L_RegionCustomers lrc
 WHERE	ct.userID = p_Login
  
 	AND	lcr.ContactID = ct.ContactID
 	AND	lcr.RegionID = lrc.RegionID
 	AND	c.CustomerID = lrc.CustomerID
 	 
-ORDER BY c.CustomerName;
+ORDER BY CustomerName;
 
 
 END;

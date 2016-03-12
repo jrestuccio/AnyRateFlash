@@ -1,55 +1,38 @@
 <section class="container section">
   <div class="card">
     <div class="card-content"> 
+    <%= form_tag flashRefineSearch_path do %>
+      
       <div class="row">
-      <h6> Hotels </h6>
-       <%= form_tag flashRefineSearch_path do %>
-
-             <% @show_hotels.each do |hotel| %>                                    
-                    <div class="col s12">
-                      <%= check_box_tag "selected_hotels[]", hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
-                      <%= label_tag hotel.to_s.html_safe %>
-                    </div>
-              <% end %>
-            <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
-            <div class="row">
-
-              
-            </div>
-            <div class="row">
-              <div class="col s12 m6">
-                <div class="row">
-                  <div class="col s12">
-                    <h6>Coming Soon</h6>
-                  </div>
-                </div>
-                <div class="row">
-                <% @show_sites.each do |site| %>                                    
-                    <div class="col s12">
-                      <%= check_box_tag "selected_sites[]", site, params[:selected_sites] && params[:selected_sites].include?(site), :id => site %>                    
-                      <%= label_tag site.to_s.html_safe %>
-                    </div>
-              <% end %>
-                
-                </div>
-                <div class="row">
-                
-                
-                </div>
-                
-              
-            </div>
+        <h6> Hotels </h6>       
+          <div class="col s12 m6">                  
+            <% @show_hotels.each do |hotel| %>                                                        
+              <%= check_box_tag "selected_hotels[]", hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
+              <%= label_tag hotel.to_s.html_safe %>                    
+            <% end %>                                  
+          </div>
       </div>
+      
+      <div class="row">                           
+        <h6>Sites</h6>
+          <div class="col s12 m6">     
+            <% @show_sites.each do |site| %>                                                        
+              <%= check_box_tag "selected_sites[]", site, params[:selected_sites] && params[:selected_sites].include?(site), :id => site %>
+              <%= label_tag site.to_s.html_safe %>                    
+            <% end %>
+          </div>
+      </div>
+          
       <div class="row">
         <div class="col s2 offset-s5">
           <div class=" actions waves-effect waves-light center-align btn">
             <%= submit_tag "Search"%>
           </div>
-        </div>            
-        <% end %>
-                
-            
+        </div>                
       </div>
+    
+    <% end %>        
+
     </div>
   </div>
 </section>

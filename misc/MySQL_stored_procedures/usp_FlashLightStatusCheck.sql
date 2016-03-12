@@ -30,7 +30,7 @@ SELECT SesID = (SELECT SessionID FROM TFX_FlashJobStatus Where SessionID = p_Ses
 
 
 -- Get oldest se... *** SQLINES FOR EVALUATION USE ONLY *** 
-SELECT Started = (SELECT MIN(RunStartDate) FROM tfx_SearchRequestQ WHERE SessionID = p_SessionID);
+SELECT Started = (SELECT MIN(RunStartDate) FROM TFX_SearchRequestQ WHERE SessionID = p_SessionID);
 
 -- Set Total Sea... *** SQLINES FOR EVALUATION USE ONLY *** 
 SELECT Total = (SELECT COUNT(*) FROM TFX_V2_Queue WHERE SessionID = p_SessionID);

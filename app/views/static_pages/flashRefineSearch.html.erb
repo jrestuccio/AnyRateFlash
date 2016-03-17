@@ -3,6 +3,9 @@
     <div class="card-content"> 
     <%= form_tag flashRefineSearch_path do %>
       
+
+
+
       <div class="row">
              
           <div class="col s12 m5 collection with-header">                  
@@ -10,6 +13,7 @@
             <% @show_hotels.each do |hotel| %>                                                        
               <%= check_box_tag :selected_hotels, hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
               <%= label_tag hotel.to_s.html_safe %>                    
+              <br />
             <% end %>                                  
           </div>
 

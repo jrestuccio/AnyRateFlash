@@ -3,29 +3,26 @@
   <div class="section">
     <div class="card">
       <div class="card-content"> 
-        <div class="row">
-          <div class="col s12 m10 offset-m1 ">
+        <div class="row">         
+          <div class="col s12 m10 offset-m1 ">            
             <%= form_tag flashRefineSearchRateTypes_path do %>
               <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
               <div class="row">
-                <div class="col s12 m6">                 
+                <div class="col s12 m4">                 
                   <%= select(:RateTypeDescShort, :RateTypeID, @rateTypes.map{|r| [ r[1], r[0] ]}, {prompt: "Select a Rate Type"}, {class: "select-two select-two-style"}) %>
-                </div>               
+                </div>                 
               </div>
-              <div class="row">
-                <div class="col s12">                
-                </div>
-              </div>
-              <div class="row">  
+           </div>
 
-              </div>
               <div class="row">
-                <div class="col s12 m2">
+                  <div class="col s12 m2 offset-m1">
+
                   <div class="row">
                    <h6>Best Available should...</h6>
                   </div>
                 </div>
-                <div class="col s12 m10">                
+
+                <div class="col s12 m9">                
                   <p>
                     <input class="with-gap" name="group1" type="radio" id="IAPNRR" />
                     <label for="IAPNRR">Include Advance Purchase/Non-Refundable Rates</label>
@@ -40,6 +37,10 @@
                   </p>
                 </div>
               </div>
+              <div class="row">  
+              </div>
+             
+               
               <div class="row">
                 <div class="col s2 offset-s5">
                   <div class=" actions waves-effect waves-light center-align btn">

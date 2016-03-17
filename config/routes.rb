@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'static_pages/welcome', to: 'static_pages#welcome', as: 'welcome'
   post 'static_pages/welcome', to: 'static_pages#logon'
+
   get 'static_pages/:id/flash', to: 'static_pages#flash', as: 'flash'
   post 'static_pages/:id/flash', to: 'static_pages#continue'
 
@@ -14,6 +15,10 @@ Rails.application.routes.draw do
   get 'static_pages/:id/flashRefineSearch', to: 'static_pages#flashRefineSearch', as: 'flashRefineSearch'
   post 'static_pages/:id/flashRefineSearch', to: 'static_pages#continue3'
   
+
+  get 'static_pages/:id/flashRefineSearchSchedule', to: 'static_pages#flashRefineSearchSchedule', as: 'flashRefineSearchSchedule'
+  post 'static_pages/:id/flashRefineSearchSchedule', to: 'static_pages#continue4'
+
 
   resources :tfx_contacts
   resources :tfx_hotels

@@ -46,6 +46,7 @@ class StaticPagesController < ApplicationController
   end
 
   def continue2 
+    #redirect_to flashRefineSearchSchedule_path(@phash) 
     # phash = params.clone   
     redirect_to flashRefineSearch_path()      
   end
@@ -56,17 +57,23 @@ class StaticPagesController < ApplicationController
     # phash3 = phash2
 
     #@show_hotels = [1,2]  # ActiveRecord::Base.connection.execute("call usp_GetFlashHotelsForCustomer('" + @phash[:CustomerID] + "')")
-
+    
     #@show_sites = [1,2] # ActiveRecord::Base.connection.execute("call usp_GetFlashSitesForCustomer('" + @phash[:CustomerID] + "')")
     @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomer(3224)")
     ActiveRecord::Base.clear_active_connections!
+    #params[:show_sites][:siteid,:sitedesc,:isbranded,:searchtypeid,:havedetailedrates,:isavailable,:isactive] || = []
     @show_sites = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
     
 
   end
 
   def continue3
+    redirect_to flashRefineSearchSchedule_path() 
 
+  end
+
+  def flashRefineSearchSchedule
+      @timeTable = ['5:00AM (CST)', '6:00AM (CST)', '7:00AM (CST)','8:00AM (CST)']
   end
 
 end

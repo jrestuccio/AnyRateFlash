@@ -73,7 +73,7 @@ class StaticPagesController < ApplicationController
   end
 
   def flashRefineSearchSchedule
-      @timeTable = ["6:00AM", "7:00AM","8:00AM"]
+      @timeTable = ['5:00AM (CST)', '6:00AM (CST)', '7:00AM (CST)','8:00AM (CST)']
   end
 
 end

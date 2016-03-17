@@ -12,10 +12,10 @@
 
                 <%= label_tag "flash_run_date" %>
                 <%=  date_field_tag 'flash_run_date', nil, class: 'datepicker' %>
+              
+                <%= select_tag "time", options_for_select(@timeTable.collect {|p| [ p ] })  %>
                 
-                <%= select(:time, @timeTable, {class: "select-two select-two-style"}) %>
-                <%= select_tag(@timeTable.each, option_tags = time, options = {})  %>
-                
+
                 </div>               
               </div>
               <div class="row">

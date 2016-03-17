@@ -3,40 +3,39 @@
     <div class="card-content"> 
     <%= form_tag flashRefineSearch_path do %>
       
+ 
 
 
 
       <div class="row">
-             
-          <div class="col s12 m5 collection with-header">                  
-          <h6 > Hotels </h6>  
+          <div class="col s12 m6 with-header">                  
+            <h6 > Hotels </h6>  
             <% @show_hotels.each do |hotel| %>                                                        
-              <%= check_box_tag :selected_hotels, hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
-              <%= label_tag hotel.to_s.html_safe %>                    
+              <%= check_box_tag 'selected_hotels[]', hotel[0], params[:selected_hotels] && params[:selected_hotels].include?(hotel[0]), :id => hotel[0].tr(' ','_') %> 
+              <%= label_tag hotel[0]%>                    
               <br />
             <% end %>                                  
           </div>
 
-          <div class="col s12 m6 collection with-header offset-m1">
-              <h6>Custom CompSet</h6>
-            <div class="col s12 m12 ">                  
-                <% @show_hotels.each do |hotel| %>                                                        
-                <%= check_box_tag :selected_hotels, hotel, params[:selected_hotels] && params[:selected_hotels].include?(hotel), :id => hotel %>                    
-                <%= label_tag hotel.to_s.html_safe %>                    
-                <% end %>                                  
-            </div>
+          <div class="col s12 m6  with-header ">
+            <h6>Custom CompSet</h6>
+            <% @show_compsets.each do |comp| %>                                                                      
+                <%= check_box_tag 'selected_compsets[]', comp[0], params[:selected_compsets] && params[:selected_compsets].include?(comp[0]), :id => comp[0].tr(' ','_') %>                    
+                <%= label_tag comp[0] %>                    
+            <% end %>                                  
           </div>
+          
       </div>
       
       <div class="row">                                   
-          <div class="col s12 m4 collection with-header">     
+          <div class="col s12 m6 collection with-header">     
           <h6>Sites</h6>
             <% @show_sites.each do |site| %>   
-            <%= check_box_tag "selected_sites[]", site, params[:selected_sites] && params[:selected_sites].include?(site), :id => site %>
-            <%= label_tag site.to_s.html_safe %> <br />
+            <%= check_box_tag "selected_sites[]", site[0], params[:selected_sites] && params[:selected_sites].include?(site), :id => site[0].tr(' ','_') %>
+            <%= label_tag site[0].html_safe %> <br />
             <% end %>
           </div>                                        
-          <div class="col s12 m6 collection with-header offset-m1">     
+          <div class="col s12 m6 collection with-header">     
           <h6>Data Collection Method</h6>
              <p>
                 <input class="with-gap" name="group1" type="radio" id="fresh" />

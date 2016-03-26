@@ -12,8 +12,6 @@ class StaticPagesController < ApplicationController
 
   end
 
-
-
   def flash
   	@userat = TfxContact.find(params[:id])
 
@@ -21,34 +19,12 @@ class StaticPagesController < ApplicationController
   	@hotels = ActiveRecord::Base.connection.execute("call usp_getCustomersByEmail('" + @userat.UserID + "')")
 
   	@arr_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "EveryDay"]
-    # pulling params from the page
-   
-  	# @hotels = hquery.fetch_all
-    # @phash = params.dup
   end
-  
-  def continue 
-    # @phash = params.dup
-     @phash = { "days_selected" => params[:selected_days],
-      "cust_name" => params[:CustomerName],
-      "cust_id" => params[:CustomerID],
-      "s_date" => params[:start_date],
-      "e_date" => params[:end_date]            
-    }
-    redirect_to flashRefineSearchRateTypes_path(@phash)      
-  end
-
 
   def flashRefineSearchRateTypes
     # phash2 = phash
     @rateTypes = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateTypes")
     # @rateFilters = ActiveRecord::Base.connection.execute("CALL usp_GetFlashRateFilters")
-  end
-
-  def continue2 
-    #redirect_to flashRefineSearchSchedule_path(@phash) 
-    # phash = params.clone   
-    redirect_to flashRefineSearch_path()      
   end
 
   # Still an issue with retriving the hash
@@ -59,7 +35,9 @@ class StaticPagesController < ApplicationController
     #@show_hotels = [1,2]  # ActiveRecord::Base.connection.execute("call usp_GetFlashHotelsForCustomer('" + @phash[:CustomerID] + "')")
     
     #@show_sites = [1,2] # ActiveRecord::Base.connection.execute("call usp_GetFlashSitesForCustomer('" + @phash[:CustomerID] + "')")
-    @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomer(3224)").to_a
+    @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomer('"+params[:CustomerID]+"')").to_a
+    # query = ActiveRecord::Base.connection.prepare("CALL usp_GetFlashHotelsForCustomer(?)")
+    # @show_hotels = query.execute(params[:CustomerID].to_i).to_a
     ActiveRecord::Base.clear_active_connections!
     #params[:show_sites][:siteid,:sitedesc,:isbranded,:searchtypeid,:havedetailedrates,:isavailable,:isactive] || = []
     @show_sites = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
@@ -67,14 +45,7 @@ class StaticPagesController < ApplicationController
     # currently only a copy of the hotels array
     @show_compsets =  [] 
     @show_hotels.each{ |item|  @show_compsets.push(item.to_a.dup)}
-    # @show_compsets = @show_hotels.dup
-
-    
-
-  end
-
-  def continue3
-    redirect_to flashRefineSearchSchedule_path() 
+    # @show_compsets = @show_hotels.dup 
 
   end
 

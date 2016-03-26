@@ -7,17 +7,16 @@ Rails.application.routes.draw do
   post 'static_pages/welcome', to: 'static_pages#logon'
 
   get 'static_pages/:id/flash', to: 'static_pages#flash', as: 'flash'
-  post 'static_pages/:id/flash', to: 'static_pages#continue'
+  post 'static_pages/:id/flash', to: 'static_pages#flashRefineSearchRateTypes'
 
   get 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#flashRefineSearchRateTypes', as: 'flashRefineSearchRateTypes'
-  post 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#continue2'
+  post 'static_pages/:id/flashRefineSearchRateTypes', to: 'static_pages#flashRefineSearch'
 
   get 'static_pages/:id/flashRefineSearch', to: 'static_pages#flashRefineSearch', as: 'flashRefineSearch'
-  post 'static_pages/:id/flashRefineSearch', to: 'static_pages#continue3'
+  post 'static_pages/:id/flashRefineSearch', to: 'static_pages#flashRefineSearchSchedule'
   
-
   get 'static_pages/:id/flashRefineSearchSchedule', to: 'static_pages#flashRefineSearchSchedule', as: 'flashRefineSearchSchedule'
-  post 'static_pages/:id/flashRefineSearchSchedule', to: 'static_pages#continue4'
+
 
 
   resources :tfx_contacts

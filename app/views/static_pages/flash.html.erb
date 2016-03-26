@@ -7,7 +7,7 @@
             <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
             <div class="row">
               <div class="col s12">
-                <%= select(:CustomerName, :CustomerID, @hotels.map{|h| [ h[1], h[0] ]}, {prompt: "Select a property"}, {class: "select-two select-two-style"}) %>
+                <%= select_tag(:CustomerID,options_for_select(@hotels.map{|h| [ h[1], h[0] ]}), {prompt: "Select a property", class: "select-two select-two-style"}) %>
               </div>
             </div>
             <div class="row">
@@ -22,7 +22,7 @@
                 <% @arr_days.each do |day| %>
                   <% if day == 'EveryDay' %>
                     <div class="col s12">
-                      <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll()' %>
+                      <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll("#EveryDay")' %>
                       <%= label_tag day.html_safe, day.html_safe, class: 'black-text'  %>
                     </div>
                   <%else %>
@@ -44,13 +44,13 @@
                 </div>
                 <div class="row">
                   <div class="col s12">
-                    <%= select(:los1, :los1, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los1, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
                   </div>
                   <div class="col s12">
-                    <%= select(:los2, :los2, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los2, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
                   </div>
                   <div class="col s12">
-                    <%= select(:los3, :los3, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los3, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
                   </div>
                 </div>
               </div>

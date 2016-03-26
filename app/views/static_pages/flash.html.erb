@@ -17,12 +17,12 @@
                     <h6>Select Arrival Date</h6>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" id='select_days'>
                 
                 <% @arr_days.each do |day| %>
                   <% if day == 'EveryDay' %>
                     <div class="col s12">
-                      <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll("#EveryDay")' %>
+                      <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day, onclick: 'selectAll("#EveryDay", "#select_days")' %>
                       <%= label_tag day.html_safe, day.html_safe, class: 'black-text'  %>
                     </div>
                   <%else %>

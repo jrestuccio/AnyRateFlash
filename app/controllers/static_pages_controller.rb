@@ -42,6 +42,7 @@ class StaticPagesController < ApplicationController
     #params[:show_sites][:siteid,:sitedesc,:isbranded,:searchtypeid,:havedetailedrates,:isavailable,:isactive] || = []
     @show_sites = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
 
+    @show_sites = @show_sites.map{ |s| s[0][2..-1].tr('/ ','_')}
     # currently only a copy of the hotels array
     @show_compsets =  [] 
     @show_hotels.each{ |item|  @show_compsets.push(item.to_a.dup)}

@@ -17,12 +17,25 @@
 #    }
 # });
 
-@selectAll = (id) ->
+@selectAll = (id, divid) ->
 
-  if $(id).is(':checked')
-    $("input:checkbox").prop("checked", true)                   
-  else
-    $("input:checkbox").prop("checked", false)                     
+	if $(id).is(':checked')
+    	$(divid).find("input:checkbox").prop("checked", true)                   
+	else
+  		$(divid).find("input:checkbox").prop("checked", false)                    
+
+
+	
+	# if $(id).is(':checked')
+ #    	$(id).siblings('input[type="checkbox"]').prop("checked", true)                   
+ #  	else
+ #    	$(id).siblings('input[type="checkbox"]').prop("checked", false)
+
+
+  # if $(id).is(':checked')
+  #   $("input:checkbox").prop("checked", true)                   
+  # else
+  #   $("input:checkbox").prop("checked", false)  
 
 
 # function selectAll() {

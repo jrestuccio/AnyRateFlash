@@ -28,7 +28,7 @@
                   <%else %>
                     <div class="col s12">
                       <%= check_box_tag "selected_days[]", day, params[:selected_days] && params[:selected_days].include?(day), :id => day %>
-                      <%= label_tag day.html_safe %>
+                      <%= label_tag day.html_safe class: 'black-text' %>
                     </div>
                   <% end %>
 

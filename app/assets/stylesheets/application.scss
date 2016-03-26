@@ -16,10 +16,12 @@
 
 
 @import "materialize/components/color";
-$primary-color: color("amber", "darken-3") !default;
-$secondary-color: color("indigo", "base") !default;
-
+$primary-color: #006E0B !default;
+$secondary-color: #006E0B !default;
 @import 'materialize';
+/*$green: ("base": #076413);
+$orange: ("base": #FD8200);
+$yellow: ("base": #FCCF2C);*/
 
 /* Destop only version */
 @media #{$large-and-up} {
@@ -74,5 +76,30 @@ img{
 .purps{
     width: 30px;
     height: 100%;
-  }
+}
+
+.color-box{
+  height: 1%;
+  width: 100%;
+}
+.white-box{
+  height: 96%;
+  width: 100%;
+}
+.green{
+  background-color: #006E0B !important;
+  color: #006E0B !important;
+}
+.orange{
+  background-color: #FD8200 !important;
+  color: #FD8200 !important;
+}
+.yellow{
+  background-color: #FCCF2C !important;
+  color: #FCCF2C !important;
+}
+body{
+  background-color: #FFF4D9;
+  height:100%;
+}
 

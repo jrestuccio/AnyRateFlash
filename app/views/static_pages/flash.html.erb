@@ -44,28 +44,32 @@
                 </div>
                 <div class="row">
                   <div class="col s12">
-                    <%= select(:los, :los1, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los1, Array.new(50){|x| x + 1},  {selected: 1}, {class: "select-two select-two-style"}) %>
                   </div>
                   <div class="col s12">
-                    <%= select(:los, :los2, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los2, Array.new(50){|x| x + 1}, {prompt: "Select additional length of stay (optional)"}, {class: "select-two select-two-style"}) %>
                   </div>
                   <div class="col s12">
-                    <%= select(:los, :los3, Array.new(50){|x| x + 1}, {prompt: "Select a length of stay"}, {class: "select-two select-two-style"}) %>
+                    <%= select(:los, :los3, Array.new(50){|x| x + 1}, {prompt: "Select additional length of stay (optional)"}, {class: "select-two select-two-style"}) %>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
+            </div>             
+
+            <div class ="row">
               <div class="col s12 m6">
-                <%= label_tag "start_date" %>
-                <%=  date_field_tag 'start_date', nil, class: 'datepicker' %>
-                <!-- <input type="date" class="datepicker"> -->
+                <i class="material-icons datepicker prefix">today</i>                                        
+                <%= label_tag "Start Date" %>                                                
+                <%= date_field("flash", "startDate", value: Time.now.strftime('%m/%d/%Y') ) %>                  
               </div>
+
               <div class="col s12 m6">
-                <%= label_tag "end_date" %>
-                <%=  date_field_tag 'end_date', nil, class: 'datepicker' %>
+                <i class="material-icons datepicker prefix">today</i>        
+                <%= label_tag "End Date" %>                
+                <%= date_field("flash", "endDate", value: (Time.now + (1*7*24*60*60)).strftime('%m/%d/%Y') ) %>  
               </div>
-            </div>
+            </div>    
+
         </div>
       </div>
       <div class="row">

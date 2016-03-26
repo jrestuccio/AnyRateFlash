@@ -40,9 +40,13 @@ class StaticPagesController < ApplicationController
     # @show_hotels = query.execute(params[:CustomerID].to_i).to_a
     ActiveRecord::Base.clear_active_connections!
     #params[:show_sites][:siteid,:sitedesc,:isbranded,:searchtypeid,:havedetailedrates,:isavailable,:isactive] || = []
-    @show_sites = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
-
+    show_sites_temp = ActiveRecord::Base.connection.execute("CALL usp_GetFlashSitesForCustomer(3224)")
+    branded = show_sites_temp.select{ |s| s[1] == 1}
+    @show_sites = show_sites_temp.select{ |s| s[1] == 0} 
     @show_sites = @show_sites.map{ |s| s[0][2..-1].tr('/ ','_')}
+    @show_sites << 'Branded'
+
+
     # currently only a copy of the hotels array
     @show_compsets =  [] 
     @show_hotels.each{ |item|  @show_compsets.push(item.to_a.dup)}

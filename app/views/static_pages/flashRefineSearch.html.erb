@@ -27,7 +27,7 @@
       </div>
       
       <div class="row">                                   
-          <div class="col s12 m6 collection with-header" id='select_sites'>     
+          <div class="col s12 m6 with-header" id='select_sites'>     
           <h6>Sites</h6>
             <% @show_sites.each do |site| %>   
             <%= check_box_tag "selected_sites[]", site.tr('_',' '), params[:selected_sites] && params[:selected_sites].include?(site), :id => site %>
@@ -37,7 +37,7 @@
                 <%= label_tag "all sites", "All Sites", class: 'black-text'  %>
           </div>
 
-          <div class="col s12 m6 collection with-header">     
+          <div class="col s12 m6 with-header">     
           <h6>Data Collection Method</h6>
              <p>
                 <input class="with-gap" name="group1" type="radio" id="fresh" />

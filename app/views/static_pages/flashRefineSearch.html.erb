@@ -18,10 +18,11 @@
           </div>
 
           <div class="col s12 m6  with-header " id='select_add_comp_hotels'>
-            <h6>Additional market Competitors</h6>
+            <h6>Additional Market Competitors</h6>
             <% @show_compsets.each do |comp| %>                                                                      
                 <%= check_box_tag 'selected_compsets[]', comp[0], params[:selected_compsets] && params[:selected_compsets].include?(comp[0]), :id => comp[0].tr(' ','_') %>                    
-                <%= label_tag comp[0], comp[0], class: 'black-text' %>          
+                <%= label_tag comp[0], comp[0], class: 'black-text' %>   
+                <br />       
                 <% end %> 
                 <%= check_box_tag "all aditional competitors", "All Aditional Competitors", false, onclick: 'selectAll("#all_aditional_competitors", "#select_add_comp_hotels")' %>
                 <%= label_tag "All Aditional Competitors", "All Aditional Competitors", class: 'black-text'  %>                                 

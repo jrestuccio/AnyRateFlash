@@ -51,8 +51,9 @@ class StaticPagesController < ApplicationController
     # select the additional competitor compset
     ActiveRecord::Base.clear_active_connections!
     @show_hotels_additional = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomerAdd('"+params[:CustomerID]+"')").to_a
-    @show_compsets_additional =  [] 
-    @show_hotels_additional.each{ |item|  @show_compsets_additional.push(item.to_a.dup)}
+    show_compsets_additional =  [] 
+    # @show_hotels_additional.each{ |item|  show_compsets_additional.push(item.to_a.dup)}
+    @show_hotels_additional = @show_hotels_additional.map{ |s| s[0].tr('/ ','_')}
     # @show_compsets = @show_hotels.dup 
 
   end

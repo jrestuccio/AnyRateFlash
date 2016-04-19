@@ -1,7 +1,6 @@
 <section class="container section">
   <div class="card">
     <div class="card-content">
-
     <%= form_tag flashRefineSearch_path do %>
       <div class="row">
           <div class="col s12 m6 with-header" id='select_comp_hotels'>                  
@@ -18,12 +17,12 @@
           <div class="col s12 m6  with-header " id='select_add_comp_hotels'>
             <h6>Additional Market Competitors</h6>
             <% @show_hotels_additional.each do |comp| %>                                                                      
-                <%= check_box_tag 'selected_compsets[]', comp[0], params[:selected_compsets] && params[:selected_compsets].include?(comp[0]), :id => comp[0].tr(' ','_') %>                    
-                <%= label_tag comp[0], comp[0], class: 'black-text' %>   
+                <%= check_box_tag 'selected_compsets[]', comp, params[:selected_compsets] && params[:selected_compsets].include?(comp), :id => comp.tr(' ','_') %>                    
+                <%= label_tag comp, comp.tr('_',' '), class: 'black-text' %>   
                 <br />       
                 <% end %> 
-                <%= check_box_tag "all aditional competitors", "All Aditional Competitors", false, onclick: 'selectAll("#all_aditional_competitors", "#select_add_comp_hotels")' %>
-                <%= label_tag "All Aditional Competitors", "All Aditional Competitors", class: 'black-text'  %>                                 
+                <%= check_box_tag "all additional competitors", "All Additional Competitors", false, onclick: 'selectAll("#all_additional_competitors", "#select_add_comp_hotels")' %>
+                <%= label_tag "all additional competitors", "All Additional Competitors", class: 'black-text'  %>                                 
           </div>
           
       </div>

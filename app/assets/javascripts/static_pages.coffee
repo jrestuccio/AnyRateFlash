@@ -17,12 +17,26 @@
 #    }
 # });
 
+
 @selectAll = (id, divid) ->
 
 	if $(id).is(':checked')
     	$(divid).find("input:checkbox").prop("checked", true)                   
 	else
-  		$(divid).find("input:checkbox").prop("checked", false)                    
+  		$(divid).find("input:checkbox").prop("checked", false) 
+
+
+
+$(document).on('ready page:change', ->
+  $("#scheduleDisplay").hide()
+
+  $("input[name=schedule1]").change( () ->
+      if this.value == 'Now'
+        $("#scheduleDisplay").hide()
+      else if this.value == 'Future'
+        $("#scheduleDisplay").show()
+    )               
+  )                 
 
 
 	

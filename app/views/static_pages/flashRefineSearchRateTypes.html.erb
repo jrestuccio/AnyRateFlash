@@ -7,12 +7,43 @@
           <div class="col s12 m10 offset-m1 ">            
             <%= form_tag params.merge(:controller => "static_pages", :action => "flashRefineSearch" ) do %>
               <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->
-              <div class="row">
-                <div class="col s12 m4">                 
-                  <%= select(:RateTypeDescShort, :RateTypeID, @rateTypes.map{|r| [ r[1], r[0] ]}, {prompt: "Select a Rate Type"}, {class: "select-two select-two-style"}) %>
-                </div>                 
-              </div>
            </div>
+
+              <div class="row">
+                  <div class="col s12 m2 offset-m1">
+
+                  <div class="row">
+                   <h6>Select a Rate Type...</h6>
+                  </div>
+                </div>
+
+                <div class="col s12 m9">                
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="B/A" checked="true" />
+                    <label for="B/A" class="black-text">B/A</label>
+                  </p>
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="GOV" />
+                    <label for="GOV" class="black-text">GOV</label>
+                  </p>
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="AARP"  />
+                    <label for="AARP" class="black-text">AARP</label>
+                  </p>
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="AAA"  />
+                    <label for="AAA" class="black-text">AAA</label>
+                  </p>
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="ALL"  />
+                    <label for="ALL" class="black-text">ALL</label>
+                  </p>
+                </div>
+              </div>
+              <div class="row">  
+              </div>
+
+
 
               <div class="row">
                   <div class="col s12 m2 offset-m1">
@@ -24,15 +55,15 @@
 
                 <div class="col s12 m9">                
                   <p>
-                    <input class="with-gap" name="group1" type="radio" id="IAPNRR" />
+                    <input class="with-gap" name="group2" type="radio" id="IAPNRR" checked="true" />
                     <label for="IAPNRR" class="black-text">Include Advance Purchase/Non-Refundable Rates</label>
                   </p>
                   <p>
-                    <input class="with-gap" name="group1" type="radio" id="EAPNRR" />
+                    <input class="with-gap" name="group2" type="radio" id="EAPNRR" />
                     <label for="EAPNRR" class="black-text">Exclude Advance Purchase/Non-Refundable Rates</label>
                   </p>
                   <p>
-                    <input class="with-gap" name="group1" type="radio" id="BOTH"  />
+                    <input class="with-gap" name="group2" type="radio" id="BOTH"  />
                     <label for="BOTH" class="black-text">Separately show both Best Available and Lowest Restricted Rates (Advance Purchase/Non-Refundable)</label>
                   </p>
                 </div>

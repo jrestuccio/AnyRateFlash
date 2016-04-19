@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
     #@show_hotels = [1,2]  # ActiveRecord::Base.connection.execute("call usp_GetFlashHotelsForCustomer('" + @phash[:CustomerID] + "')")
     
     #@show_sites = [1,2] # ActiveRecord::Base.connection.execute("call usp_GetFlashSitesForCustomer('" + @phash[:CustomerID] + "')")
-    @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomer('"+params[:CustomerID]+"')").to_a
+    @show_hotels = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomerCore('"+params[:CustomerID]+"')").to_a    
     # query = ActiveRecord::Base.connection.prepare("CALL usp_GetFlashHotelsForCustomer(?)")
     # @show_hotels = query.execute(params[:CustomerID].to_i).to_a
     ActiveRecord::Base.clear_active_connections!
@@ -48,9 +48,11 @@ class StaticPagesController < ApplicationController
     @show_sites << 'Branded'
 
 
-    # currently only a copy of the hotels array
-    @show_compsets =  [] 
-    @show_hotels.each{ |item|  @show_compsets.push(item.to_a.dup)}
+    # select the additional competitor compset
+    ActiveRecord::Base.clear_active_connections!
+    @show_hotels_additional = ActiveRecord::Base.connection.execute("CALL usp_GetFlashHotelsForCustomerAdd('"+params[:CustomerID]+"')").to_a
+    @show_compsets_additional =  [] 
+    @show_hotels_additional.each{ |item|  @show_compsets_additional.push(item.to_a.dup)}
     # @show_compsets = @show_hotels.dup 
 
   end

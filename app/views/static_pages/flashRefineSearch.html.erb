@@ -12,12 +12,12 @@
               <br />
             <% end %>
             <%= check_box_tag "all competitors","All Competitors", false, onclick: 'selectAll("#all_competitors", "#select_comp_hotels")' %>
-            <%= label_tag "all competitors", "All Competitors", class: 'black-text'  %>                                  
+            <%= label_tag "all competitors", "All Core Competitors", class: 'black-text'  %>                                  
           </div>
 
           <div class="col s12 m6  with-header " id='select_add_comp_hotels'>
             <h6>Additional Market Competitors</h6>
-            <% @show_compsets.each do |comp| %>                                                                      
+            <% @show_hotels_additional.each do |comp| %>                                                                      
                 <%= check_box_tag 'selected_compsets[]', comp[0], params[:selected_compsets] && params[:selected_compsets].include?(comp[0]), :id => comp[0].tr(' ','_') %>                    
                 <%= label_tag comp[0], comp[0], class: 'black-text' %>   
                 <br />       

@@ -1,4 +1,13 @@
 
+<script>    
+    $("input[name$='schedule1']").click(function() {
+      if ( $("#Now").attr('checked'))
+            $("div.scheduleDisplay").hide();
+      if ( $("#Future").attr('checked'))
+            $("#scheduleDisplay").show();               
+    }); 
+</script>
+
 <section class="container">
   <div class="section">
     <div class="card">
@@ -6,8 +15,19 @@
         <div class="row">
           <div class="col s12 m10 offset-m1 ">
             <%= form_tag flashRefineSearchSchedule_path do %>              
+
+                  <p>
+                    <input class="with-gap" name="schedule1" type="radio" id="Now" checked="true" />
+                    <label for="Now" class="black-text">Run Now</label>
+                  </p>
+                  <p>
+                    <input class="with-gap" name="schedule1" type="radio" id="Future" />
+                    <label for="Future" class="black-text">Schedule Your Report</label>
+                  </p>
+
+
               <div class="row">
-                <div class="col s12 m6">                 
+                <div class="col s12 m6 scheduleDiv hidden" id="scheduleDisplay">                 
                 <h6>Schedule your flash search</h6>
 
                 <%= label_tag "flash_run_date" %>

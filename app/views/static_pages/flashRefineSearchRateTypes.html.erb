@@ -3,7 +3,8 @@
   <div class="section">
     <div class="card">
       <div class="card-content"> 
-        <div class="row">         
+        <div class="row">      
+        <%= params.inspect %>   
           <div class="col s12 m10 offset-m1 ">            
             <%= form_tag params.merge(:controller => "static_pages", :action => "flashRefineSearch" ) do %>
               <!-- Collection of Hotels returns 2 params= :CustomerName & :CustomerID -->

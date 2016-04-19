@@ -32,9 +32,9 @@ $(document).on('ready page:change', ->
 
   $("input[name=schedule1]").change( () ->
       if this.value == 'Now'
-        $("#scheduleDisplay").hide()
+        $("#scheduleDisplay").siledUp()
       else if this.value == 'Future'
-        $("#scheduleDisplay").show()
+        $("#scheduleDisplay").slideDown()
     )               
   )                 
 
